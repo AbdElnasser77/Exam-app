@@ -1,0 +1,17 @@
+@if (control?.errors && control?.touched) {
+@if(control?.getError('required')){
+<p class="text-red-600 text-sm pt-1">Your {{InputLabel}} is required</p>
+}
+@if (control?.getError('minlength')) {
+<p class="text-red-600 text-sm pt-1">Your {{InputLabel}} is less than 5 characters</p>
+}
+@if (control?.getError('maxlength')) {
+<p class="text-red-600 text-sm pt-1">Your {{InputLabel}} is more than 20 characters</p>
+}
+@if (control?.getError('email')) {
+<p class="text-red-600 text-sm pt-1">Please enter a valid email</p>
+}
+@if(control?.getError('missmatch') && control?.touched){
+<p class="text-red-600 text-sm pt-1">Passwords don't match</p>
+}
+}

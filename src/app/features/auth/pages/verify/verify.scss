@@ -1,0 +1,7 @@
+::ng-deep p-inputotp input{
+    border-radius: 0px !important;
+}
+::ng-deep p-inputotp input:focus {
+    border-color: #1d4ed8 !important;
+    color: #2563eb !important;
+}

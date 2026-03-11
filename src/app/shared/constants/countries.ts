@@ -1,0 +1,40 @@
+export interface Country {
+  code: string,
+  name: string,
+  flag: string,
+}
+
+
+export const Countries: Country[] = [
+  { name: 'Egypt', code: '+20', flag: 'eg' },
+  { name: 'Saudi Arabia', code: '+966', flag: 'sa' },
+  { name: 'United Arab Emirates', code: '+971', flag: 'ae' },
+  { name: 'Qatar', code: '+974', flag: 'qa' },
+  { name: 'Kuwait', code: '+965', flag: 'kw' },
+  { name: 'Bahrain', code: '+973', flag: 'bh' },
+  { name: 'Oman', code: '+968', flag: 'om' },
+  { name: 'Jordan', code: '+962', flag: 'jo' },
+  { name: 'Lebanon', code: '+961', flag: 'lb' },
+  { name: 'Iraq', code: '+964', flag: 'iq' },
+  { name: 'Morocco', code: '+212', flag: 'ma' },
+  { name: 'Algeria', code: '+213', flag: 'dz' },
+  { name: 'Tunisia', code: '+216', flag: 'tn' },
+  { name: 'Sudan', code: '+249', flag: 'sd' },
+  { name: 'Libya', code: '+218', flag: 'ly' },
+
+  { name: 'United States', code: '+1', flag: 'us' },
+  { name: 'United Kingdom', code: '+44', flag: 'gb' },
+  { name: 'Germany', code: '+49', flag: 'de' },
+  { name: 'France', code: '+33', flag: 'fr' },
+  { name: 'Italy', code: '+39', flag: 'it' },
+  { name: 'Spain', code: '+34', flag: 'es' },
+  { name: 'Canada', code: '+1', flag: 'ca' },
+  { name: 'Australia', code: '+61', flag: 'au' },
+  { name: 'Turkey', code: '+90', flag: 'tr' },
+  { name: 'India', code: '+91', flag: 'in' },
+  { name: 'Pakistan', code: '+92', flag: 'pk' },
+  { name: 'China', code: '+86', flag: 'cn' },
+  { name: 'Japan', code: '+81', flag: 'jp' },
+  { name: 'Brazil', code: '+55', flag: 'br' },
+  { name: 'South Africa', code: '+27', flag: 'za' },
+];

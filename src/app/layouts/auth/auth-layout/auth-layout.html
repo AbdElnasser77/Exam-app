@@ -1,0 +1,44 @@
+<div class="w-screen h-screen flex ">
+    <div class="panel hidden sm:flex w-1/2 flex-col items-center h-screen overflow-hidden relative border-e border-e-gray-300">
+        <div class="overlay ">
+            <div class="circle w-100 h-100 absolute rounded-full -right-20 -z-100 bg-blue-400 opacity-40 blur-3xl"></div>
+            <div class="circle w-100 h-100 absolute rounded-full -left-10 -bottom-50 -z-100 bg-blue-400 opacity-40 blur-3xl"></div>
+        </div>
+        <div class="info w-112.5">
+            <div class="logo-badge flex items-center pt-10">
+                <i-lucide [img]="FolderCode" [size]="40" class="my-icon text-blue-600"></i-lucide>
+                <h2 class="text-blue-600 text-xl font-semibold ps-3">Exam App</h2>
+            </div>
+            <div class="content flex flex-col h-screen justify-center pb-50">
+                <h1 class="text-3xl font-bold text-gray-800 pt-25 pb-15">Empower your learning journey with our smart exam platform.</h1>
+
+                <ul class="space-y-6">
+                    <li class="flex">
+                        <i-lucide [img]="Brain" [size]="40" class="text-blue-600"></i-lucide>
+                        <div class="ps-5">
+                            <h3 class="text-xl text-blue-600 font-semibold">Tailored Diplomas</h3>
+                            <p>Choose from specialized tracks like Frontend, Backend, and Mobile Development.</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i-lucide [img]="BookOpenCheck" [size]="40" class="text-blue-600 "></i-lucide>
+                        <div class="ps-5">
+                            <h3 class="text-xl text-blue-600 font-semibold">Focused Exams</h3>
+                            <p>Access topic-specific tests including HTML, CSS, JavaScript, and more.</p>
+                        </div>
+                    </li>
+                    <li class="flex">
+                        <i-lucide [img]="RectangleEllipsis" [size]="40" class="text-blue-600 "></i-lucide>
+                        <div class="ps-5">
+                            <h3 class="text-xl text-blue-600 font-semibold">Smart Multi-Step Forms</h3>
+                            <p>Choose from specialized tracks like Frontend, Backend, and Mobile Development.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-wrapper px-5 w-full sm:w-1/2 overflow-auto">
+        <router-outlet></router-outlet>
+    </div>
+</div>

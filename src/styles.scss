@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+h1,h2,h3,h4,h5,h6{
+ font-family: "Inter", sans-serif;
+}
+
+body{
+    font-family: "Geist Mono", monospace;
+}
+
+.p-password input {
+    border: 1px solid #cbd5e1;
+    color: #1f2937;
+    font-size: 0.875rem;
+    border-radius: 0;
+    display: block;
+    width: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.p-password input::placeholder {
+    color: #9ca3af !important;
+}
+
+.p-password input:focus {
+    outline: 0 !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 2px rgba(191, 219, 254, 0.5) !important;
+}
+
+.custom-input {
+    font-size: 0.875rem !important;
+    border-radius: 0px !important;
+    display: block !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    width: 100% !important;
+}
+
+.custom-input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 1px #bfdbfe !important;
+}
+

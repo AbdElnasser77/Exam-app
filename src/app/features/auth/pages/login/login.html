@@ -1,0 +1,46 @@
+<div class="h-screen max-w-lg mx-auto flex flex-col justify-center">
+  <h1 class="text-3xl font-bold pb-6">Login</h1>
+  <form [formGroup]="loginForm">
+    <div class="mb-5">
+      <label for="userName" class="block mb-2 font-medium">Username</label>
+
+      <input type="text" formControlName="userName" id="userName" class="custom-input" placeholder="user123" required
+        pInputText />
+
+      <validation-error [control]="loginForm.get('userName')" [InputLabel]="'username'"></validation-error>
+      
+
+    </div>
+    <div class="mb-2">
+      <label for="password" class="block mb-2 font-medium">Password</label>
+
+      <p-password formControlName="password" [placeholder]="'********'" class="w-full" [feedback]="false"
+        [toggleMask]="true" />
+        
+      <validation-error [control]="loginForm.get('password')" [InputLabel]="'password'"></validation-error>
+   
+    </div>
+
+    <div class="mb-5 text-end">
+      <a routerLink="/forgot-password" class="text-blue-700 font-semibold hover:text-blue-900 transition">Forgot your
+        password?</a>
+    </div>
+
+    <div [class.hidden]="!invalid"
+      class="hidden bg-red-600/10 py-3 text-center border border-red-600 mb-10 mt-5 relative">
+      <i-lucide [img]="circleX" [size]="20" class="text-red-600 absolute bottom-5 bg-white rounded-full"></i-lucide>
+
+      <p class="text-red-600 text-sm pt-1">Something went wrong</p>
+    </div>
+
+    <buttonComponent (click)="login()">Login</buttonComponent>
+    
+    <div class="my-5 text-center">
+      <p class="ms-2 text-sm font-medium text-gray-600 text-heading select-none">
+        Don't have an account?
+        <a routerLink="/register" class="text-blue-700 text-fg-brand hover:text-blue-900 transition">Create yours</a>
+      </p>
+    </div>
+
+  </form>
+</div>
