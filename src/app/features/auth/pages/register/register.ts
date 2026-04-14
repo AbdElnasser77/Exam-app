@@ -5,7 +5,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { PasswordModule } from 'primeng/password';
-
+import { ButtonModule } from 'primeng/button';
+import { StepperModule } from 'primeng/stepper';
 import {
   AbstractControl,
   FormBuilder,
@@ -13,16 +14,26 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ChevronsUpDown, LucideAngularModule } from 'lucide-angular';
+import { ChevronsUpDown, Diamond, LucideAngularModule, RectangleCircle, Square } from 'lucide-angular';
 import { ValidationError } from "../../components/validation-error/validation-error";
 
 @Component({
   selector: 'app-register',
-  imports: [Button, RouterLink, InputMaskModule, SelectModule, PasswordModule, InputTextModule, ReactiveFormsModule, LucideAngularModule, ValidationError],
+  imports: [Button, RouterLink, InputMaskModule, SelectModule, PasswordModule, InputTextModule, ReactiveFormsModule, LucideAngularModule, ValidationError, ButtonModule, StepperModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
 export class Register {
+  readonly diamond = Diamond;
+  readonly square = Square;
+
+  step = 1;
+
+  setStep(value: number) {
+    this.step = value;
+    console.log(this.step)
+  }
+
   selectedCountry: any;
   value!: string;
   registerForm!: FormGroup;
@@ -40,8 +51,8 @@ export class Register {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      firstName: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20),]],
-      lastName: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(20),]],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),]],
       userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
       country: ['EG', Validators.required],
@@ -63,12 +74,14 @@ export class Register {
   Signup() {
     if (this.registerForm.valid) {
       console.log('success', this.registerForm);
-      this.router.navigate(['/verify'],{
-        queryParams:{email:this.registerForm.get('email')?.value}
+      this.router.navigate(['/verify'], {
+        queryParams: { email: this.registerForm.get('email')?.value }
       });
-    }else{
+    } else {
       console.log('error', this.registerForm);
       this.registerForm.markAllAsTouched();
     }
   }
+
+
 }

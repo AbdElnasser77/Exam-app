@@ -1,6 +1,134 @@
-<div class="min-h-screen max-w-lg mx-auto flex flex-col justify-center py-10">
+<div class="min-h-screen max-w-lg mx-auto flex flex-col justify-center py-10 bg-amber-750">
   <h1 class="text-3xl font-bold pb-6">Create Account</h1>
-  <form [formGroup]="registerForm">
+
+  <p-stepper [value]="step" class="basis-[50rem]">
+    <p-step-list>
+
+      <p-step [value]="1">
+
+        @if (step > 1) {
+        <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 bg-[#2563eb] rotate-45"></div>
+        </div>
+        } @else {
+         <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 border border-[#2563eb] rotate-45"></div>
+        </div>
+        }
+
+      </p-step>
+
+      <p-step [value]="2">
+
+            @if (step > 2) {
+        <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 bg-[#2563eb] rotate-45"></div>
+        </div>
+        } @else {
+         <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 border border-[#2563eb] rotate-45"></div>
+        </div>
+        }
+      </p-step>
+
+      <p-step [value]="3">
+
+        @if (step > 3) {
+        <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 bg-[#2563eb] rotate-45"></div>
+        </div>
+        } @else {
+         <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 border border-[#2563eb] rotate-45"></div>
+        </div>
+        }
+
+      </p-step>
+
+      <p-step [value]="4">
+
+           @if (step > 4) {
+        <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 bg-[#2563eb] rotate-45"></div>
+        </div>
+        } @else {
+         <div class="w-5 h-5 flex items-center justify-center">
+          <div class="w-3.5 h-3.5 border border-[#2563eb] rotate-45"></div>
+        </div>
+        }
+      </p-step>
+
+    </p-step-list>
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              Content I1
+            </div>
+          </div>
+          <div class="flex pt-6 justify-end">
+            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)"
+              (click)="setStep(2)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              Content II
+            </div>
+          </div>
+          <div class="flex pt-6 justify-between">
+            <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)"
+              (click)="setStep(1)" />
+            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)"
+              (click)="setStep(3)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              Content III
+            </div>
+          </div>
+          <div class="flex pt-6 justify-between">
+            <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)"
+              (click)="setStep(2)" />
+            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(4)"
+              (click)="setStep(4)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="4">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="flex flex-col h-48">
+            <div
+              class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">
+              Content IIII
+            </div>
+          </div>
+          <div class="flex pt-6 justify-start">
+            <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(3)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+
+    </p-step-panels>
+  </p-stepper>
+
+
+  <!-- <form [formGroup]="registerForm">
+
+
     <div class="mb-5 flex gap-5">
       <div class="w-1/2">
         <label for="firstName" class="block mb-1 font-medium">First name</label>
@@ -18,17 +146,17 @@
     </div>
     <div class="mb-5">
       <label for="userName" class="block mb-1 font-medium">Username</label>
-      <input formControlName="userName" type="text" id="userName" class="custom-input w-full" placeholder="user123" pInputText
-        required />
+      <input formControlName="userName" type="text" id="userName" class="custom-input w-full" placeholder="user123"
+        pInputText required />
 
-        <validation-error [control]="registerForm.get('userName')" [InputLabel]="'username'"></validation-error>
+      <validation-error [control]="registerForm.get('userName')" [InputLabel]="'username'"></validation-error>
     </div>
     <div class="mb-5">
       <label for="email" class="block mb-1 font-medium">Email</label>
       <input formControlName="email" type="email" id="email" class="custom-input w-full" placeholder="user@example.com"
         pInputText required />
 
-        <validation-error [control]="registerForm.get('email')" [InputLabel]="'email'"></validation-error>
+      <validation-error [control]="registerForm.get('email')" [InputLabel]="'email'"></validation-error>
 
     </div>
 
@@ -64,7 +192,7 @@
       <label class="block mb-1 font-medium">Password</label>
       <p-password formControlName="password" [placeholder]="'********'" class="w-full" [feedback]="false"
         [toggleMask]="true" />
-        <validation-error [control]="registerForm.get('password')" [InputLabel]="'password'"></validation-error>
+      <validation-error [control]="registerForm.get('password')" [InputLabel]="'password'"></validation-error>
 
     </div>
     <div class="mb-7 w-full ">
@@ -73,7 +201,8 @@
         [toggleMask]="true" />
 
       <validation-error [control]="registerForm" [InputLabel]="'password'"></validation-error>
-      <validation-error [control]="registerForm.get('rePassword')" [InputLabel]="'password confirmation'"></validation-error>
+      <validation-error [control]="registerForm.get('rePassword')"
+        [InputLabel]="'password confirmation'"></validation-error>
     </div>
 
     <buttonComponent (click)="Signup()">Create Account</buttonComponent>
@@ -85,5 +214,5 @@
           class="text-blue-700 text-fg-brand hover:cursor-pointer hover:text-blue-900 transition">Login</a>
       </p>
     </div>
-  </form>
+  </form> -->
 </div>

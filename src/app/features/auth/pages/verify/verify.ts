@@ -4,7 +4,7 @@ import { LucideAngularModule, MoveLeft } from 'lucide-angular';
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { InputOtpModule } from 'primeng/inputotp';
 import { ResendTimerService } from '../../services/resend-timer-service';
-import { AsyncPipe } from '@angular/common';
+
 @Component({
   selector: 'app-verify',
   imports: [Button, LucideAngularModule, RouterLink, InputOtpModule],
