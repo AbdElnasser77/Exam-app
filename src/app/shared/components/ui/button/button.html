@@ -1,6 +1,13 @@
-<button
-    class="text-white w-full cursor-pointer bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium bg-blue-700 hover:bg-blue-700/95 transition duration-300 leading-5 rounded-base text-sm px-4 py-3 focus:outline-none">
+<button [classList]="buttonClasses.preset[preset] +' '+ buttonClasses.base">
 
-    <ng-content/>
+    @if(icon && (iconDir === 'l' || iconDir === 's')) {
+    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline"></i-lucide>
+    }
+    
+    <ng-content />
+
+    @if(icon && (iconDir === 'r' || iconDir === 'e')) {
+    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline"></i-lucide>
+    }
 
 </button>

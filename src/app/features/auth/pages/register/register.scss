@@ -1,9 +1,23 @@
-::ng-deep span.p-step-title {
-  color: red;
+::ng-deep p-step{
+  pointer-events: none;
 }
 
-::ng-deep .p-step-active .p-step-title{
-    color: skyblue !important;
+::ng-deep p-step.p-step.p-step-active .step{
+  position: relative;
+}
+
+::ng-deep p-step.p-step.p-step-active .step::before{
+  content: '';
+  width: 100%;
+  height: 100%;
+  left: 0;
+  z-index: 111;
+  position: absolute;
+  outline: #DBEAFE solid 4px;
+}
+
+::ng-deep .p-step-active {
+    padding: 0 !important;
 }
 
 
@@ -12,7 +26,7 @@
   border-top: 2px dashed #2563eb;
 }
 
-::ng-deep .p-step:has(~ .p-step-active) .p-stepper-separator {
+::ng-deep .p-step:has(~ .p-step-active) .p-stepper-separator{
   background: none !important;
   border-top: 2px solid #2563eb;
 }
