@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -17,9 +17,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes,withViewTransitions()), provideClientHydration(withEventReplay()),
     provideHttpClient(),
     provideAnimations(),
-      providePrimeNG({
-            theme: {
-                preset: Aura,
+      providePrimeNG({ 
+            theme: { 
                 options:{
                   darkModeSelector:'.dark'
                 }
