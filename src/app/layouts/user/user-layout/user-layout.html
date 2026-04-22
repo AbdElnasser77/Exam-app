@@ -1,8 +1,31 @@
-<div class="w-screen h-screen flex ">
-    <div class="bg-amber-600 h-full">
+<div class="w-screen h-screen flex">
+  <div class="bg-sky-50 ps-5 h-full w-[350px] border-r-1 border-blue-100">
+    <div class="img-container pt-7">
+      <img src="./images/Final Logo.svg" alt="Brand logo" class="w-50" />
+      <div class="logo-badge flex items-center mt-2">
+        <i-lucide [img]="folderCode" [size]="40" class="my-icon text-blue-600"></i-lucide>
+        <h2 class="text-blue-600 text-xl font-semibold ps-3">Exam App</h2>
+      </div>
+    </div>
 
+    <div class="nav-items mt-10 me-10">
+      <ul class="flex flex-col gap-5">
+        <li class="nav-item text-blue-600 bg-blue-100 border border-blue-500">
+          <a class="flex items-center h-15" routerLink="/diplomas">
+            <i-lucide [img]="GraduationCap" [size]="50" [strokeWidth]="1" class="my-icon px-2"></i-lucide>
+            <p>Diplomas</p>
+          </a>
+        </li>
+        <li class="nav-item hover:text-blue-600 hover:bg-blue-100 hover:border border- border-blue-500">
+          <a class="flex items-center h-15" routerLink="/exams">
+            <i-lucide [img]="GraduationCap" [size]="50" [strokeWidth]="1" class="my-icon px-2"></i-lucide>
+            <p>Accout Settings</p>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="page-wrapper px-5 w-full sm:w-1/2 overflow-auto">
-        <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="page-wrapper px-5 w-full sm:w-1/2 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
 </div>
