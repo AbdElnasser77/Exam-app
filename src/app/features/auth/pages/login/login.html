@@ -8,17 +8,15 @@
         pInputText />
 
       <validation-error [control]="loginForm.get('userName')" [InputLabel]="'username'"></validation-error>
-      
-
     </div>
     <div class="mb-2">
       <label for="password" class="block mb-2 font-medium">Password</label>
 
       <p-password formControlName="password" [placeholder]="'********'" class="w-full" [feedback]="false"
         [toggleMask]="true" />
-        
+
       <validation-error [control]="loginForm.get('password')" [InputLabel]="'password'"></validation-error>
-   
+
     </div>
 
     <div class="mb-5 text-end">
@@ -34,7 +32,7 @@
     </div>
 
     <buttonComponent (click)="login()">Login</buttonComponent>
-    
+
     <div class="my-5 text-center">
       <p class="ms-2 text-sm font-medium text-gray-600 text-heading select-none">
         Don't have an account?

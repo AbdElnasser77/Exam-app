@@ -1,8 +1,10 @@
 import { Routes } from "@angular/router";
 import { AuthLayout } from "../../layouts/auth/auth-layout/auth-layout";
+import { isLoggedInGuard } from "../../core/guards/is-logged-in-guard";
 
 export const AuthRoutes:Routes = [
     {path:'',component:AuthLayout,
+       canMatch:[isLoggedInGuard],
         children:[
             {path:'',redirectTo:'login',pathMatch:'full'},
             {path:'register',loadComponent:()=>import('./pages/register/register').then((c)=> c.Register), title:'Register'},
