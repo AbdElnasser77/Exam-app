@@ -1,42 +1,6 @@
 <div class="w-screen h-screen flex">
-  <div class="bg-sky-50 ps-5 h-full w-[350px] border-r-1 border-blue-100 flex flex-col justify-between ">
-    <div class="img-container pt-7">
-      <img src="./images/Final Logo.svg" alt="Brand logo" class="w-50" />
-      <div class="logo-badge flex items-center mt-2">
-        <i-lucide [img]="folderCode" [size]="40" class="my-icon text-blue-600"></i-lucide>
-        <h2 class="text-blue-600 text-xl font-semibold ps-3">Exam App</h2>
-      </div>
-    </div>
-
-    <div class="nav-items mt-10 me-10 h-full">
-      <ul class="flex flex-col text-gray-500 gap-5">
-        <li class="nav-item">
-          <a class="flex items-center h-15 hover:text-blue-600 hover:bg-blue-100 border border-blue-50 hover:border hover:border-blue-500 transitio duration-200" routerLink="/diplomas" routerLinkActive="text-blue-600 bg-blue-100 border-blue-500">
-            <i-lucide [img]="GraduationCap" [size]="50" [strokeWidth]="1" class="my-icon px-2"></i-lucide>
-            <p>Diplomas</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="flex items-center h-15 hover:text-blue-600 hover:bg-blue-100 border border-blue-50 hover:border hover:border-blue-500 transition duration-200" routerLink="/exams" routerLinkActive="text-blue-600 bg-blue-100 border-blue-500">
-            <i-lucide [img]="GraduationCap" [size]="50" [strokeWidth]="1" class="my-icon px-2"></i-lucide>
-            <p>Account Settings</p>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="profile-section mb-10 flex">
-      <div class="profile-icon w-15 h-15 overflow-hidden border-2 border-blue-500">
-        <img src="./images/profile-mockup.jpg" alt="username">
-      </div>
-      <div class="profile-data ps-2 flex flex-col justify-center">
-        <p class="text-blue-500">Firstname</p>
-        <span class="text-sm text-gray-500">user-email@example.com</span>
-      </div>
-        <i-lucide [img]="EV" [size]="20" class="my-icon text-gray-500 m-auto"></i-lucide>
-    </div>
-  </div>
-  <div class="page-wrapper px-5 w-full sm:w-1/2 overflow-auto">
+  <app-sidebar></app-sidebar>
+  <div class="page-wrapper px-5 w-full overflow-auto">
     <router-outlet></router-outlet>
   </div>
 </div>

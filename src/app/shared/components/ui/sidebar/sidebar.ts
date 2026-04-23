@@ -1,0 +1,81 @@
+import { CurrentUserService } from './../../../../core/services/current-user.service';
+import { Component, inject } from '@angular/core';
+import {
+  EllipsisVertical,
+  FolderCode,
+  GraduationCap,
+  Settings,
+  LucideAngularModule,
+  User,
+  LogOut,
+} from 'lucide-angular';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule, Menu } from 'primeng/menu';
+import { MenuItem, MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { UserProfile } from '../../../../core/models/user-profile';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [
+    LucideAngularModule,
+    RouterLink,
+    RouterLinkActive,
+    Menu,
+    CommonModule,
+    MenuModule,
+    ButtonModule,
+  ],
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.scss',
+})
+export class Sidebar {
+  readonly folderCode = FolderCode;
+  readonly GraduationCap = GraduationCap;
+  readonly Settings = Settings;
+  readonly User = User;
+  readonly LogOut = LogOut;
+  readonly EV = EllipsisVertical;
+
+  private messageService = inject(MessageService);
+  private router = inject(Router);
+  private currentUserService = inject(CurrentUserService);
+  token: string = '';
+
+  user?:UserProfile;
+
+  items: MenuItem[] | undefined;
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Account',
+        lucideIcon: User,
+        routerLink: '/user',
+      },
+      {
+        label: 'Dashboard',
+        lucideIcon: Settings,
+        routerLink: '/dashboard', // لازم يتشال و يتظبط علي حسب ال role....
+      },
+      {
+        label: 'Logout',
+        lucideIcon: LogOut,
+        styleClass: 'text-red-500',
+        command: () => {
+          localStorage.removeItem('token');
+          this.router.navigate(['/login']);
+        },
+      },
+    ];
+
+    this.token = localStorage.getItem('token') ?? '';
+
+    this.currentUserService.getLoggedUser(this.token).subscribe({
+      next: (res) => {
+        this.user = res.payload.user;
+      },
+    });
+  }
+}

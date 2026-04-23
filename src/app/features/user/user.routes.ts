@@ -10,14 +10,9 @@ export const UserRoutes: Routes = [
       { path: '', redirectTo: 'diplomas', pathMatch: 'full' },
       {
         path: 'diplomas',
-        loadComponent: () => import('./pages/diplomas/diplomas').then((c) => c.Diplomas),
+        loadComponent: () => import('./diplomas/pages/diplomas-home/diplomas-home').then((c) => c.DiplomasHome),
       },
-      { path: 'exams', loadComponent: () => import('./pages/exam/exam').then((c) => c.Exam) },
-      {
-        path: 'exams/:id',
-        loadComponent: () =>
-          import('./pages/exam-questions/exam-questions').then((c) => c.ExamQuestions),
-      },
+      { path: 'exams', loadComponent: () => import('./exam/pages/exam/exam').then((c) => c.Exam) },
     ],
   },
 ];

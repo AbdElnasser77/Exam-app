@@ -1,0 +1,29 @@
+<div class="relative">
+  <app-header [icon]="GraduationCap">Diplomas</app-header>
+
+  <div class="grid grid-cols-3 gap-5">
+    @for (diploma of diplomas; track $index) {
+      <div class="diploma-card bg-amber-500 h-100 relative group transition">
+        <img class="w-full h-full object-cover" [src]="diploma.image" [alt]="diploma.title"/>
+        <div
+          class="content overflow-hidden bg-blue-500/70 absolute bottom-0 left-0 right-0 m-3 text-white py-5 px-3 capitalize"
+        >
+          <h3 class="text-lg font-bold">
+            {{ diploma.title }}
+          </h3>
+
+          <p
+            class="pt-2 text-sm text-gray-200 leading-relaxed line-clamp-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+          >
+            {{ diploma.description }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col items-center justify-center absolute bottom-0 bg-white left-0 right-0 py-5">
+    <p class="">Scroll to view more</p>
+    <i-lucide [img]="ChevronDown" [size]="20" [strokeWidth]="1"></i-lucide>
+  </div>
+</div>
