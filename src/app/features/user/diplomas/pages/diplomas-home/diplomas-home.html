@@ -1,24 +1,29 @@
 <div class="relative">
+    <p-breadcrumb [model]="items" [home]="home" />
+
+
   <app-header [icon]="GraduationCap">Diplomas</app-header>
 
   <div class="grid grid-cols-3 gap-5">
     @for (diploma of diplomas; track $index) {
-      <div class="diploma-card bg-amber-500 h-100 relative group transition">
-        <img class="w-full h-full object-cover" [src]="diploma.image" [alt]="diploma.title"/>
+    <a [routerLink]="`/diplomas/${diploma.id}/exams`">
+
+      <div class="diploma-card h-100 relative group transition">
+        <img class="w-full h-full object-cover object-center" [src]="diploma.image" [alt]="diploma.title" />
         <div
-          class="content overflow-hidden bg-blue-500/70 absolute bottom-0 left-0 right-0 m-3 text-white py-5 px-3 capitalize"
-        >
+          class="content overflow-hidden bg-blue-500/70 absolute bottom-0 left-0 right-0 m-3 text-white py-5 px-3 capitalize">
           <h3 class="text-lg font-bold">
             {{ diploma.title }}
           </h3>
 
           <p
-            class="pt-2 text-sm text-gray-200 leading-relaxed line-clamp-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
-          >
+            class="pt-2 text-sm text-gray-200 leading-relaxed line-clamp-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
             {{ diploma.description }}
           </p>
         </div>
       </div>
+    </a>
+
     }
   </div>
 

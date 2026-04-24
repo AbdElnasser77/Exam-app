@@ -9,4 +9,5 @@ import { LucideAngularModule, LucideIconData } from "lucide-angular";
 })
 export class Header {
   @Input() icon!:LucideIconData;
+  @Input() additional:string = "";
 }

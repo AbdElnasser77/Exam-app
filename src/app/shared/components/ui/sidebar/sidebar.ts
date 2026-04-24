@@ -1,5 +1,5 @@
 import { CurrentUserService } from './../../../../core/services/current-user.service';
-import { Component, inject } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import {
   EllipsisVertical,
   FolderCode,
@@ -13,7 +13,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule, Menu } from 'primeng/menu';
 import { MenuItem, MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { UserProfile } from '../../../../core/models/user-profile';
 
 @Component({
@@ -41,9 +41,10 @@ export class Sidebar {
   private messageService = inject(MessageService);
   private router = inject(Router);
   private currentUserService = inject(CurrentUserService);
+  private platform_ID = inject(PLATFORM_ID);
   token: string = '';
 
-  user?:UserProfile;
+  user?: UserProfile;
 
   items: MenuItem[] | undefined;
 
@@ -69,13 +70,15 @@ export class Sidebar {
         },
       },
     ];
+    if (isPlatformBrowser(this.platform_ID)) {
+      this.token = localStorage.getItem('token') ?? '';
 
-    this.token = localStorage.getItem('token') ?? '';
+      this.currentUserService.getLoggedUser(this.token).subscribe({
+        next: (res) => {
+          this.user = res.payload.user;
+        },
+      });
+    }
 
-    this.currentUserService.getLoggedUser(this.token).subscribe({
-      next: (res) => {
-        this.user = res.payload.user;
-      },
-    });
   }
 }

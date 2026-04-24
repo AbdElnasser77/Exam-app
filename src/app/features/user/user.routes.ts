@@ -12,7 +12,7 @@ export const UserRoutes: Routes = [
         path: 'diplomas',
         loadComponent: () => import('./diplomas/pages/diplomas-home/diplomas-home').then((c) => c.DiplomasHome),
       },
-      { path: 'exams', loadComponent: () => import('./exam/pages/exam/exam').then((c) => c.Exam) },
+      { path: 'diplomas/:id/exams', loadComponent: () => import('./exams/pages/exams/exams').then((c) => c.Exams) },
     ],
   },
 ];

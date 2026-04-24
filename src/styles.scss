@@ -44,3 +44,16 @@ body{
     box-shadow: 0 0 0 1px #bfdbfe !important;
 }
 
+
+.p-breadcrumb ol li:last-child a {
+  color: #2563EB !important;
+}
+
+.p-breadcrumb ol li:last-child a :hover {
+  color: #1D4ED8 !important;
+}
+
+
+a.p-breadcrumb-item-link.ng-star-inserted :hover{
+   color: #1D4ED8 !important;
+}

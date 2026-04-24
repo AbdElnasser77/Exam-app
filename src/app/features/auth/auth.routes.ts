@@ -7,8 +7,8 @@ export const AuthRoutes:Routes = [
        canMatch:[isLoggedInGuard],
         children:[
             {path:'',redirectTo:'login',pathMatch:'full'},
-            {path:'register',loadComponent:()=>import('./pages/register/register').then((c)=> c.Register), title:'Register'},
             {path:'login',loadComponent:()=>import('./pages/login/login').then((c)=>c.Login),title:'Login'},
+            {path:'register',loadComponent:()=>import('./pages/register/register').then((c)=> c.Register), title:'Register'},
             {path:'forgot-password',loadComponent:()=>import('./pages/forgot-password/forgot-password').then((c)=>c.ForgotPassword),title:'Forgot Password'},
             {path:'create-password',loadComponent:()=>import('./pages/create-password/create-password').then((c)=>c.CreatePassword),title:'Create Password'},
             {path:'reset-password',loadComponent:()=>import('./pages/password-reset/password-reset').then((c)=>c.PasswordReset),title:'Reset Password'},

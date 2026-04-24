@@ -1,13 +1,19 @@
-<button [classList]="buttonClasses.preset[preset] +' '+ buttonClasses.base">
+<button [class]="
+    buttonClasses.base + ' ' +
+    buttonClasses.size[size] + ' ' +
+    buttonClasses.preset[preset] + ' ' +
+    width +
+    additional
+  ">
 
     @if(icon && (iconDir === 'l' || iconDir === 's')) {
-    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline"></i-lucide>
+    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline me-1"></i-lucide>
     }
-    
+
     <ng-content />
 
     @if(icon && (iconDir === 'r' || iconDir === 'e')) {
-    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline"></i-lucide>
+    <i-lucide [img]="icon" [size]="iconSize" strokeWidth="1" class="inline ms-1"></i-lucide>
     }
 
 </button>

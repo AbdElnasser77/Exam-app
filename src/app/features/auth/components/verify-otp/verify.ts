@@ -1,13 +1,12 @@
-import { Component, EventEmitter, inject, Input, Output, OutputDecorator } from '@angular/core';
-import { Button } from "../../../../shared/components/ui/button/button";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LucideAngularModule, MoveLeft } from 'lucide-angular';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { InputOtpChangeEvent, InputOtpModule } from 'primeng/inputotp';
 import { ResendTimerService } from '../../services/resend-timer-service';
 
 @Component({
   selector: 'otp-verify',
-  imports: [LucideAngularModule, RouterLink, InputOtpModule],
+  imports: [LucideAngularModule, InputOtpModule],
   templateUrl: './verify.html',
   styleUrl: './verify.scss',
 })
