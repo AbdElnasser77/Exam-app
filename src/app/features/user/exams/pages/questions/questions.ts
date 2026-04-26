@@ -4,23 +4,28 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from '../../../../../shared/components/ui/button/button';
 import { Header } from '../../../../../shared/components/ui/header/header';
 import { MenuItem } from 'primeng/api';
-import { ChevronLeftIcon, CircleQuestionMark, LucideAngularModule } from 'lucide-angular';
+import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, CircleQuestionMark, LucideAngularModule } from 'lucide-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { ExamService } from '../../services/exam.service';
 import { Countdown } from '../../../../../shared/components/ui/countdown/countdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { QuestionsService } from '../../services/questions.service';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+import { Answers } from '../../models/answers';
 
 @Component({
   selector: 'app-questions',
-  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule],
+  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
 })
 export class Questions {
   readonly Questions = CircleQuestionMark;
   readonly chevronLeft = ChevronLeftIcon;
+  readonly chevronRight = ChevronRightIcon;
+  readonly check = CheckIcon;
 
   items: MenuItem[] | undefined;
   Home: MenuItem[] | undefined;
@@ -28,9 +33,11 @@ export class Questions {
   examTitle: string = 'loading.';
   examId: string = '';
   diplomaId: string = '';
-  questionsCount:number = 0;
-  questions:Question[] = [];
-
+  questionsCount: number = 0;
+  questions: Question[] = [];
+  
+  currentQuestionIndex: number = 0;
+  selectedAnswers: Answers[] = [];
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
@@ -51,11 +58,11 @@ export class Questions {
         this.diplomaId = params.get('diplomaId') ?? '';
       });
 
-      this.questionsService.getExamQuestions(this.examId,token).subscribe({
-        next: (res)=>{
+      this.questionsService.getExamQuestions(this.examId, token).subscribe({
+        next: (res) => {
 
           this.questions = res.payload.questions;
-          console.log(this.questions);
+          console.log(this.questions); 
         }
       })
 
@@ -74,5 +81,14 @@ export class Questions {
 
   backButton() {
     this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
+  }
+
+  nextQuestion(){
+    console.log(this.selectedAnswers);
+    this.currentQuestionIndex++;
+  }
+  previousQuestion(){
+    console.log(this.selectedAnswers);
+    this.currentQuestionIndex--;
   }
 }

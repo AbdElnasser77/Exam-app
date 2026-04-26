@@ -1,32 +1,50 @@
 <p-breadcrumb [model]="items" />
 <div class="flex items-stretch gap-x-3 mb-5">
-  <buttonComponent
-    (click)="backButton()"
-    [preset]="'primary_outline'"
-    [width]="''"
-    class=""
-    [additional]="'h-full w-10'"
-  >
+  <buttonComponent (click)="backButton()" [preset]="'primary_outline'" [width]="''" class=""
+    [additional]="'h-full w-10'">
     <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide>
   </buttonComponent>
   <app-header class="grow" [additional]="'!my-0 h-full'" [icon]="Questions">
-    {{ this.examTitle }} Questions</app-header
-  >
+    {{ this.examTitle }} Questions</app-header>
 </div>
 
-<div>
-  <div class="flex items-center gap-5">
-    <div class="flex flex-col grow">
-      <div class="flex justify-between grow mb-3">
-        <p class="text-xl">{{ examTitle }}</p>
-        <span class="text-gray-500">Question <span class="text-blue-700">1</span> of 25</span>
-      </div>
-      <p-progressbar [value]="5" [showValue]="false" [color]="'#155dfb'" />
+<div class="flex items-center gap-5">
+  <div class="flex flex-col grow">
+    <div class="flex justify-between grow mb-3">
+      <h2 class="text-xl">{{ examTitle }}</h2>
+      <span class="text-gray-500">Question <span class="text-blue-700">{{ currentQuestionIndex + 1 }}</span> of {{ questions.length }}</span>
     </div>
-
-    <div class="w-[1px] h-20 bg-gray-300"></div>
-    <app-countdown [duration]="300"></app-countdown>
+    <p-progressbar [value]="((currentQuestionIndex + 1) / questions.length) * 100" [showValue]="false" [color]="'#155dfb'" />
   </div>
+
+  <div class="w-[1px] h-20 bg-gray-300"></div>
+  <app-countdown [duration]="300"></app-countdown>
 </div>
 
 
+
+<div class="exam-questions mt-5">
+  <h3 class="text-3xl text-blue-600"> {{questions[currentQuestionIndex]?.text  }} </h3>
+  <div class="flex flex-col gap-4 mt-6">
+
+    
+    @for(answer of questions[currentQuestionIndex]?.answers; track $index){
+    <div class="flex items-center gap-2 justify-start">
+      <p-radiobutton [inputId]="answer.id" [value]="answer.id" [(ngModel)]="selectedAnswers" />
+      <label [for]="answer.id" class="ml-2 ">{{ answer.text }}</label>
+    </div>
+    }
+
+    <div class="flex w-full">
+      @if(currentQuestionIndex !== 0){
+        <buttonComponent (click)="previousQuestion()" [icon]="chevronLeft" class="grow" [iconDir]="'l'" [preset]="'secondary'">Previous</buttonComponent>
+      }
+      @if(currentQuestionIndex !== questions.length - 1){
+        <buttonComponent (click)="nextQuestion()" [icon]="chevronRight" class="grow" [iconDir]="'r'" [preset]="'primary'">Next</buttonComponent>
+      }@else{
+        <buttonComponent [icon]="check" class="grow" [iconDir]="'r'" [preset]="'primary'">Submit</buttonComponent>
+      }
+    </div>
+  </div>
+
+</div>
