@@ -1,20 +1,32 @@
 <p-breadcrumb [model]="items" />
-<div class=" flex items-stretch gap-x-3 mb-5">
-    <buttonComponent (click)="backButton()" [preset]="'primary_outline'" [width]="''" class=""
-        [additional]="'h-full w-10'"> <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide>
-    </buttonComponent>
-    <app-header class="grow" [additional]="'!my-0 h-full'" [icon]="Questions"> {{this.examTitle}} Questions</app-header>
+<div class="flex items-stretch gap-x-3 mb-5">
+  <buttonComponent
+    (click)="backButton()"
+    [preset]="'primary_outline'"
+    [width]="''"
+    class=""
+    [additional]="'h-full w-10'"
+  >
+    <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide>
+  </buttonComponent>
+  <app-header class="grow" [additional]="'!my-0 h-full'" [icon]="Questions">
+    {{ this.examTitle }} Questions</app-header
+  >
 </div>
 
-
-<div >
-    <div class="flex">
-
-        <div class="flex justify-between grow">
-            <p>{{examTitle}}</p>
-            <span class="text-gray-500">Question <span class="text-blue-700">1</span> of 25</span>
-        </div>
-        
+<div>
+  <div class="flex items-center gap-5">
+    <div class="flex flex-col grow">
+      <div class="flex justify-between grow mb-3">
+        <p class="text-xl">{{ examTitle }}</p>
+        <span class="text-gray-500">Question <span class="text-blue-700">1</span> of 25</span>
+      </div>
+      <p-progressbar [value]="5" [showValue]="false" [color]="'#155dfb'" />
     </div>
-    <!-- progress bar -->
+
+    <div class="w-[1px] h-20 bg-gray-300"></div>
+    <app-countdown [duration]="300"></app-countdown>
+  </div>
 </div>
+
+

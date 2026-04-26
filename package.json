@@ -35,6 +35,7 @@
     "@tailwindcss/postcss": "^4.2.1",
     "express": "^5.1.0",
     "lucide-angular": "^0.576.0",
+    "ngx-countdown": "^21.0.0",
     "postcss": "^8.5.8",
     "primeicons": "^7.0.0",
     "primeng": "^20.4.0",
