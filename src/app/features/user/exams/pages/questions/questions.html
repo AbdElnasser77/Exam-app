@@ -12,37 +12,42 @@
   <div class="flex flex-col grow">
     <div class="flex justify-between grow mb-3">
       <h2 class="text-xl">{{ examTitle }}</h2>
-      <span class="text-gray-500">Question <span class="text-blue-700">{{ currentQuestionIndex + 1 }}</span> of {{ questions.length }}</span>
+      <span class="text-gray-500">Question <span class="text-blue-700">{{ currentQuestionIndex + 1 }}</span> of {{
+        questions.length }}</span>
     </div>
-    <p-progressbar [value]="((currentQuestionIndex + 1) / questions.length) * 100" [showValue]="false" [color]="'#155dfb'" />
+    <p-progressbar [value]="((currentQuestionIndex + 1) / questions.length) * 100" [showValue]="false"
+      [color]="'#155dfb'" />
   </div>
 
   <div class="w-[1px] h-20 bg-gray-300"></div>
   <app-countdown [duration]="300"></app-countdown>
 </div>
 
-
-
-<div class="exam-questions mt-5">
-  <h3 class="text-3xl text-blue-600"> {{questions[currentQuestionIndex]?.text  }} </h3>
+<div class="exam-questions py-10 ">
+  <h3 class="text-3xl text-blue-600"> {{questions[currentQuestionIndex]?.text }} </h3>
   <div class="flex flex-col gap-4 mt-6">
 
-    
-    @for(answer of questions[currentQuestionIndex]?.answers; track $index){
-    <div class="flex items-center gap-2 justify-start">
-      <p-radiobutton [inputId]="answer.id" [value]="answer.id" [(ngModel)]="selectedAnswers" />
-      <label [for]="answer.id" class="ml-2 ">{{ answer.text }}</label>
-    </div>
-    }
+    <div class="exam-answers flex flex-col">
 
-    <div class="flex w-full">
+      @for(answer of questions[currentQuestionIndex]?.answers; track $index){
+      <div class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5">
+        <p-radiobutton [inputId]="answer.id" [value]="answer.id"
+          [(ngModel)]="allAnswers[currentQuestionIndex].answerId" />
+        <label [for]="answer.id" class="ml-2 ">{{ answer.text }}</label>
+      </div>
+      }
+    </div>
+
+    <div class="flex w-full mt-5">
       @if(currentQuestionIndex !== 0){
-        <buttonComponent (click)="previousQuestion()" [icon]="chevronLeft" class="grow" [iconDir]="'l'" [preset]="'secondary'">Previous</buttonComponent>
+      <buttonComponent (click)="previousQuestion()" [icon]="chevronLeft" class="grow" [iconDir]="'l'"
+        [preset]="'secondary'">Previous</buttonComponent>
       }
       @if(currentQuestionIndex !== questions.length - 1){
-        <buttonComponent (click)="nextQuestion()" [icon]="chevronRight" class="grow" [iconDir]="'r'" [preset]="'primary'">Next</buttonComponent>
+      <buttonComponent (click)="nextQuestion()" [icon]="chevronRight" class="grow" [iconDir]="'r'" [preset]="'primary'">
+        Next</buttonComponent>
       }@else{
-        <buttonComponent [icon]="check" class="grow" [iconDir]="'r'" [preset]="'primary'">Submit</buttonComponent>
+      <buttonComponent [icon]="check" class="grow" [iconDir]="'r'" [preset]="'primary'">Submit</buttonComponent>
       }
     </div>
   </div>

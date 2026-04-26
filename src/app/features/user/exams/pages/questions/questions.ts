@@ -33,11 +33,12 @@ export class Questions {
   examTitle: string = 'loading.';
   examId: string = '';
   diplomaId: string = '';
-  questionsCount: number = 0;
+
   questions: Question[] = [];
-  
+  questionsCount: number = 0;
+
   currentQuestionIndex: number = 0;
-  selectedAnswers: Answers[] = [];
+  allAnswers: Answers[] = [];
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
@@ -62,7 +63,12 @@ export class Questions {
         next: (res) => {
 
           this.questions = res.payload.questions;
-          console.log(this.questions); 
+          console.log(this.questions);
+          this.allAnswers = this.questions.map((q) => ({
+            questionId: q.id,
+            answerId: ''
+          }))
+          console.log(this.allAnswers);
         }
       })
 
@@ -83,12 +89,18 @@ export class Questions {
     this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
   }
 
-  nextQuestion(){
-    console.log(this.selectedAnswers);
+  nextQuestion() {
+    console.log("all answers", this.allAnswers);
+
     this.currentQuestionIndex++;
   }
-  previousQuestion(){
-    console.log(this.selectedAnswers);
+  previousQuestion() {
+    console.log("all answers", this.allAnswers);
     this.currentQuestionIndex--;
+  }
+
+    submitExam() {
+    console.log("all answers", this.allAnswers);
+    
   }
 }

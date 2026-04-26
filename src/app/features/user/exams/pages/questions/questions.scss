@@ -1,7 +1,11 @@
 :host ::ng-deep .p-progressbar {
   border-radius: 0 !important;
+  // transition: none !important;
+  transition-duration: 0.3s !important;
+
 }
 
 :host ::ng-deep .p-progressbar-value {
   border-radius: 0 !important;
+   transition-duration: 0.3s !important;
 }

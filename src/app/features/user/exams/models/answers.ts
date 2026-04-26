@@ -1,4 +1,4 @@
 export interface Answers {
-    questionsId:string,
+    questionId:string,
     answerId:string
 }
