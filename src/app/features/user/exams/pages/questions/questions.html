@@ -1,6 +1,7 @@
 <p-breadcrumb [model]="items" />
+<app-modal [visible]="showExitModal" (cancel)="onCancelExit()" (confirm)="onConfirmExit()" />
 <div class="flex items-stretch gap-x-3 mb-5">
-  <buttonComponent (click)="backButton()" [preset]="'primary_outline'" [width]="''" class=""
+  <buttonComponent (click)="onBackAttempt()" [preset]="'primary_outline'" [width]="''" class=""
     [additional]="'h-full w-10'">
     <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide>
   </buttonComponent>

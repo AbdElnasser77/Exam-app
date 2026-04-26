@@ -1,5 +1,5 @@
 import { CurrentUserService } from './../../../../core/services/current-user.service';
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Input, PLATFORM_ID } from '@angular/core';
 import {
   EllipsisVertical,
   FolderCode,
@@ -12,8 +12,8 @@ import {
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule, Menu } from 'primeng/menu';
-import { MenuItem, MessageService } from 'primeng/api';
-import { CommonModule, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { MenuItem } from 'primeng/api';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { UserProfile } from '../../../../core/models/user-profile';
 
 @Component({
@@ -38,15 +38,14 @@ export class Sidebar {
   readonly LogOut = LogOut;
   readonly EV = EllipsisVertical;
 
-  private messageService = inject(MessageService);
   private router = inject(Router);
   private currentUserService = inject(CurrentUserService);
   private platform_ID = inject(PLATFORM_ID);
+
   token: string = '';
-
   user?: UserProfile;
-
   items: MenuItem[] | undefined;
+  @Input() isExam: boolean = false;
 
   ngOnInit() {
     this.items = [
@@ -58,7 +57,7 @@ export class Sidebar {
       {
         label: 'Dashboard',
         lucideIcon: Settings,
-        routerLink: '/dashboard', // لازم يتشال و يتظبط علي حسب ال role....
+        routerLink: '/dashboard', 
       },
       {
         label: 'Logout',

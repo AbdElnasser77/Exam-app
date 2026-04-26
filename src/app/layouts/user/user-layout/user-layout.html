@@ -1,5 +1,7 @@
 <div class="w-screen h-screen flex">
-  <app-sidebar></app-sidebar>
+  @if(!isExamMode){
+    <app-sidebar></app-sidebar>
+  }
   <div class="page-wrapper px-5 w-full overflow-auto">
     <router-outlet></router-outlet>
   </div>

@@ -14,10 +14,15 @@ import { QuestionsService } from '../../services/questions.service';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { Answers } from '../../models/answers';
+import { ExamStateService } from '../../../../../core/services/exam-state.service';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { Modal } from "../../../../../shared/components/ui/modal/modal";
+
 
 @Component({
   selector: 'app-questions',
-  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule],
+  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, ConfirmDialog, Modal],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
 })
@@ -39,14 +44,18 @@ export class Questions {
 
   currentQuestionIndex: number = 0;
   allAnswers: Answers[] = [];
+  showExitModal = false;
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
   private readonly examService = inject(ExamService);
   private readonly questionsService = inject(QuestionsService);
   private readonly router = inject(Router);
+  private readonly examStateService = inject(ExamStateService);
+  private readonly confirmationService = inject(ConfirmationService);
 
   ngOnInit() {
+    this.examStateService.setExamMode(true);
     if (isPlatformBrowser(this.platformID)) {
       const token = localStorage.getItem('token') ?? '';
 
@@ -76,8 +85,8 @@ export class Questions {
         next: (res) => {
           this.examTitle = res.payload.exam.title;
           this.items = [
-            { label: 'Diplomas', routerLink: '/diplomas' },
-            { label: this.diplomaTitle, routerLink: `/diplomas/${this.diplomaId}/exams` },
+            { label: 'Diplomas' },
+            { label: this.diplomaTitle },
             { label: this.examTitle },
           ];
         },
@@ -85,22 +94,33 @@ export class Questions {
     }
   }
 
-  backButton() {
-    this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
+  ngOnDestroy() {
+    this.examStateService.setExamMode(false);
   }
 
-  nextQuestion() {
-    console.log("all answers", this.allAnswers);
 
+  nextQuestion() {
     this.currentQuestionIndex++;
   }
   previousQuestion() {
-    console.log("all answers", this.allAnswers);
     this.currentQuestionIndex--;
   }
 
-    submitExam() {
+  submitExam() {
     console.log("all answers", this.allAnswers);
-    
+  }
+
+
+  onBackAttempt() {
+    this.showExitModal = true;
+  }
+
+  onCancelExit() {
+    this.showExitModal = false;
+  }
+
+  onConfirmExit() {
+    this.showExitModal = false;
+    this.router.navigate(['/diplomas']);
   }
 }

@@ -1,0 +1,30 @@
+@if(visible){
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="w-[600px] bg-white shadow-2xl animate-[fadeIn_0.2s_ease]">
+        <i-lucide (click)="onCancel()" [img]="x" [strokeWidth]="1" class="w-13 h-13 text-gray-700 ms-auto pt-5 pe-5 cursor-pointer hover:text-black" ></i-lucide>
+        <div
+            class="m-auto my-5 flex justify-center items-center bg-red-100 w-20 h-20 rounded-full border-8 border-red-50 ">
+            <i-lucide [img]="triangleAlert" [strokeWidth]="1" class="w-10 h-10 text-red-500"></i-lucide>
+        </div>
+        <h2 class="text-center text-xl font-semibold text-red-500">
+            Exit Exam?
+        </h2>
+        <p class="text-center text-sm text-gray-500 mt-2">
+            You are about to leave the exam. Your progress will not be saved.
+        </p>
+        <div class="mt-6 flex justify-between gap-3 bg-gray-100 border-t border-gray-200 p-4">
+            <button (click)="onCancel()"
+                class="w-full bg-gray-200 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-400 hover:text-white transition cursor-pointer">
+                Cancel
+            </button>
+            <button (click)="onConfirm()"
+                class="w-full bg-red-500 px-4 py-3 text-sm font-medium text-white hover:bg-red-600 transition cursor-pointer">
+                Exit
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+}
