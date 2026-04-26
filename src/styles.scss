@@ -11,6 +11,11 @@ body{
     font-family: "Geist Mono", monospace;
 }
 
+img{
+    pointer-events: none;
+      user-select: none;
+}
+
 .p-password input {
     border: 1px solid #cbd5e1;
     color: #1f2937;

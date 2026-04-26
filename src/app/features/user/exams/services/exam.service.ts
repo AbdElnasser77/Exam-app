@@ -19,6 +19,16 @@ export class ExamService {
     const params = new HttpParams().set('diplomaId',diploma_ID);
 
     return this.http.get(`${this.baseURL}/api/exams/`, { params ,headers});
+  }
 
+  getExamById(token: string,examId:string): Observable<any> {
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    })
+
+    // const params = new HttpParams().set('examId',examId);
+
+    return this.http.get(`${this.baseURL}/api/exams/${examId}`, { headers});
   }
 }

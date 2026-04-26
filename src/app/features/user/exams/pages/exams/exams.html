@@ -1,39 +1,44 @@
 <p-breadcrumb [model]="items" [home]="home" />
 <div class=" flex items-stretch gap-x-3 mb-5">
-    <buttonComponent routerLink="/.." [preset]="'primary_outline'" [width]="''" class="" [additional]="'h-full w-10'"> <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide> </buttonComponent>
+    <buttonComponent routerLink="/.." [preset]="'primary_outline'" [width]="''" class="" [additional]="'h-full w-10'">
+        <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide> </buttonComponent>
     <app-header class="grow" [additional]="'!my-0 h-full'" [icon]="BookOpenCheck">{{diplomaTitle}} Exams</app-header>
 </div>
 
 @for (exam of exams; track $index) {
-
-<div
-    class="exam w-full bg-blue-50 mb-3 py-5 px-3 border border-blue-50 hover:border-dashed hover:border-blue-200 transition relative group overflow-hidden">
-    <div class="flex gap-3">
-        <div class="w-[100px] h-[100px] bg-blue-100 border border-blue-300 ">
-             <img [src]="exam.image" [alt]="exam.title" class="w-full h-full object-contain object-center">
-         </div>
-
-        <div class="grow">
-            <div class="flex justify-between items-center mb-1">
-
-                <h2 class="text-blue-600 font-semibold pb-1.5">{{exam.title}}</h2>
-                <div class="info flex gap-4 text-sm">
-                    <span class="flex items-center gap-1"> <i-lucide [img]="Questions" [size]="20" class=""></i-lucide>
-                        {{exam.questionsCount}}
-                        Questions</span>
-                    <span class="flex items-center gap-1"> <i-lucide [img]="Time" [size]="20" class=""></i-lucide>
-                        {{exam.duration}} Min</span>
-                </div>
+<a   [routerLink]="`/diplomas/${exam.diplomaId}/exams/${exam.id}`">
+    <div
+        class="exam w-full bg-blue-50 mb-3 py-5 px-3 border border-blue-50 hover:border-dashed hover:border-blue-200 transition relative group overflow-hidden">
+        <div class="flex gap-3">
+            <div class="w-[100px] h-[100px] bg-blue-100 border border-blue-300 ">
+                <img [src]="exam.image" [alt]="exam.title" class="w-full h-full object-contain object-center">
             </div>
 
-            <p class="text-sm text-gray-500">{{exam.description}}</p>
+            <div class="grow">
+                <div class="flex justify-between items-center mb-1">
+
+                    <h2 class="text-blue-600 font-semibold pb-1.5">{{exam.title}}</h2>
+                    <div class="info flex gap-4 text-sm">
+                        <span class="flex items-center gap-1"> <i-lucide [img]="Questions" [size]="20"
+                                class=""></i-lucide>
+                            {{exam.questionsCount}}
+                            Questions</span>
+                        <span class="flex items-center gap-1"> <i-lucide [img]="Time" [size]="20" class=""></i-lucide>
+                            {{exam.duration}} Min</span>
+                    </div>
+                </div>
+
+                <p class="text-sm text-gray-500">{{exam.description}}</p>
+            </div>
         </div>
+
+
+        <buttonComponent [icon]="ArrowRight" [width]="''"
+            class="absolute bottom-0 right-0 translate-y-full opacity-0 group-hover:translate-y-0 transition group-hover:opacity-100"
+            additional="px-10 m-2">Start</buttonComponent>
+
+
     </div>
+</a>
 
-
-    <buttonComponent [icon]="ArrowRight" [width]="''"
-        class="absolute bottom-0 right-0 translate-y-full opacity-0 group-hover:translate-y-0 transition group-hover:opacity-100"
-        additional="px-10 m-2">Start</buttonComponent>
-
-</div>
 }

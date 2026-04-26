@@ -33,20 +33,17 @@ export class Exams {
   home: MenuItem | undefined;
 
   ngOnInit() {
-
-
-
     if (isPlatformBrowser(this.platform_ID)) {
       const token = localStorage.getItem('token') ?? '';
-      const diplomaID = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-
+      const diplomaID = this.activatedRoute.snapshot.paramMap.get('diplomaId') ?? '';
+   
       this.examService.getAllExams(token, diplomaID).subscribe({
         next: (res) => {
           this.exams = res.payload.data;
           if (this.exams.length > 0) {
             this.diplomaTitle = this.exams[0].diploma.title ?? "";
             this.hasExams = true;
-            this.items = [{ label: 'Diplomas', routerLink: '/diplomas' }, { label: this.diplomaTitle }, { label: 'Exam'},];
+            this.items = [{ label: 'Diplomas', routerLink: '/diplomas' }, { label: this.diplomaTitle }, { label: 'Exams'},];
           }
         }
       })
