@@ -1,19 +1,26 @@
 <h2 class="text-3xl text-blue-600 py-5">results: </h2>
 
-<p>results works!</p>
-
-
-<div class="flex items-center justify-between">
-    <div class="chart bg-sky-100 py-10">
-        <svg width="100" height="100">
-            <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-        </svg>
+<div class="flex gap-4 h-[500px] bg-amber-500">
+    <div class="chart bg-sky-100 px-10  h-full flex items-center justify-center ">
+        <app-donut-chart [correct]="submissionData?.correctAnswers"
+            [incorrect]="submissionData?.wrongAnswers"></app-donut-chart>
     </div>
-    <div class="answers grow">
-        <h3>QuestionsTitle</h3>
-        <div class="flex items-center gap-2">
-            <input type="radio" name="answer" id="answer1">
-            <label for="answer1">Answer 1</label>
+    <div class="answers grow bg-white p-2.5 border-2 border-dashed border-blue-200 overflow-y-auto">
+        @for(question of questionsArray; track question.id){
+        <h3 class="text-lg text-blue-600">{{question.text}}</h3>
+
+        <div class="exam-answers flex flex-col">
+            @for(answer of question.answers; track $index){
+            <label class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5 cursor-pointer"
+                [attr.for]="answer.id">
+                <p-radiobutton [inputId]="answer.id" [value]="answer.id"
+                    []/>
+                <span class="ml-2">{{ answer.text }}</span>
+            </label>
+            }
         </div>
+
+        }
+
     </div>
 </div>

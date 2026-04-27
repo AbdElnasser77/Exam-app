@@ -33,6 +33,7 @@
     "@angular/ssr": "^20.3.18",
     "@primeuix/themes": "^2.0.3",
     "@tailwindcss/postcss": "^4.2.1",
+    "chart.js": "^4.5.1",
     "express": "^5.1.0",
     "lucide-angular": "^0.576.0",
     "ngx-countdown": "^21.0.0",

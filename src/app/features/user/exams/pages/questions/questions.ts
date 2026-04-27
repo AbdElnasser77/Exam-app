@@ -17,11 +17,15 @@ import { Answers } from '../../models/answers';
 import { ExamStateService } from '../../../../../core/services/exam-state.service';
 import { Modal } from "../../../../../shared/components/ui/modal/modal";
 import { Results } from "../results/results";
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Submission } from '../../models/submission';
+import { Analytics } from '../../models/analytics';
 
 @Component({
   selector: 'app-questions',
-  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, Modal, Results],
+  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, Modal, Results, ToastModule, ButtonModule],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
 })
@@ -31,9 +35,10 @@ export class Questions {
   readonly chevronRight = ChevronRightIcon;
   readonly check = CheckIcon;
 
-  examView: 'questions' | 'results' = 'questions';
+  examView: 'questions' | 'results' = 'results';
   items: MenuItem[] | undefined;
   Home: MenuItem[] | undefined;
+
   diplomaTitle: string = '';
   examTitle: string = 'loading...';
   examId: string = '';
@@ -45,13 +50,16 @@ export class Questions {
   allAnswers: Answers[] = [];
   showExitModal = false;
 
+  submissionData?: Submission;
+  submissionAnalytics: Analytics[] = [];
+
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
   private readonly examService = inject(ExamService);
   private readonly questionsService = inject(QuestionsService);
   private readonly router = inject(Router);
   private readonly examStateService = inject(ExamStateService);
-  
+  private readonly messageService = inject(MessageService);
   // @HostListener('window:beforeunload', ['$event'])
   // onBeforeUnload(event: BeforeUnloadEvent) {
   //   if (this.examStateService.isExamMode()) {
@@ -76,8 +84,8 @@ export class Questions {
 
       this.questionsService.getExamQuestions(this.examId, token).subscribe({
         next: (res) => {
-
           this.questions = res.payload.questions;
+          console.log(this.questions);
           this.allAnswers = this.questions.map((q) => ({
             questionId: q.id,
             answerId: ''
@@ -111,18 +119,23 @@ export class Questions {
   }
 
   submitExam() {
-    console.log("all answers", this.allAnswers);
+
+    if (!this.allAnswers.every(answer => answer.answerId)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please answer all questions' });
+      return;
+    }
 
     const body = {
       examId: this.examId,
       answers: this.allAnswers,
       startedAt: this.startedAt,
     }
-    console.log("submit exam body", body);
 
     this.questionsService.submitAnswers(body, localStorage.getItem('token') ?? '').subscribe({
-      next:(res)=>{
-        console.log("submit exam response", res);
+      next: (res) => {
+        this.submissionData = res.payload.submission;
+        this.submissionAnalytics = res.payload.analytics;
+
       }
     })
 
@@ -144,5 +157,8 @@ export class Questions {
   onConfirmExit() {
     this.showExitModal = false;
     this.router.navigate(['/diplomas']);
+  }
+
+  showError() {
   }
 }

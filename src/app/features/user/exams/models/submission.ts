@@ -1,10 +1,10 @@
 export interface Submission {
+  id: string
   examId: string
-  answers: Answers[]
-  startedAt: string
-}
-
-export interface Answers {
-  questionId: string
-  answerId: string
+  examTitle: string
+  score: number
+  totalQuestions: number
+  correctAnswers: number
+  wrongAnswers: number
+  submittedAt: string
 }

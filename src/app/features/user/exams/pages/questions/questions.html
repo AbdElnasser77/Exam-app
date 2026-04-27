@@ -1,5 +1,8 @@
 <p-breadcrumb [model]="items" />
 <app-modal [visible]="showExitModal" (cancel)="onCancelExit()" (confirm)="onConfirmExit()" />
+<div class="card flex justify-center">
+  <p-toast />
+</div>
 <div class="flex items-stretch gap-x-3 mb-5">
   <buttonComponent (click)="onBackAttempt()" [preset]="'primary_outline'" [width]="''" class=""
     [additional]="'h-full w-10'">
@@ -27,38 +30,38 @@
 </div>
 
 @if(examView == 'questions') {
-  <div class="exam-questions py-10 ">
-    <h3 class="text-3xl text-blue-600"> {{questions[currentQuestionIndex]?.text }} </h3>
-    <div class="flex flex-col gap-4 mt-6">
+<div class="exam-questions py-10 ">
+  <h3 class="text-3xl text-blue-600"> {{questions[currentQuestionIndex]?.text }} </h3>
+  <div class="flex flex-col gap-4 mt-6">
 
-      <div class="exam-answers flex flex-col">
-        @for(answer of questions[currentQuestionIndex]?.answers; track $index){
-        <label class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5 cursor-pointer"
-          [attr.for]="answer.id">
-          <p-radiobutton [inputId]="answer.id" [value]="answer.id"
-            [(ngModel)]="allAnswers[currentQuestionIndex].answerId" />
-          <span class="ml-2">{{ answer.text }}</span>
-        </label>
-        }
-      </div>
-
-      <div class="flex w-full mt-5">
-        @if(currentQuestionIndex !== 0){
-        <buttonComponent (click)="previousQuestion()" [icon]="chevronLeft" class="grow" [iconDir]="'l'"
-          [preset]="'secondary'">Previous</buttonComponent>
-        }
-        @if(currentQuestionIndex !== questions.length - 1){
-        <buttonComponent (click)="nextQuestion()" [icon]="chevronRight" class="grow" [iconDir]="'r'" [preset]="'primary'">
-          Next</buttonComponent>
-        }@else{
-        <buttonComponent [icon]="check" (click)="submitExam()" class="grow" [iconDir]="'r'" [preset]="'primary'">Submit
-        </buttonComponent>
-        }
-      </div>
+    <div class="exam-answers flex flex-col">
+      @for(answer of questions[currentQuestionIndex]?.answers; track $index){
+      <label class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5 cursor-pointer"
+        [attr.for]="answer.id">
+        <p-radiobutton [inputId]="answer.id" [value]="answer.id"
+          [(ngModel)]="allAnswers[currentQuestionIndex].answerId" />
+        <span class="ml-2">{{ answer.text }}</span>
+      </label>
+      }
     </div>
 
+    <div class="flex w-full mt-5">
+      @if(currentQuestionIndex !== 0){
+      <buttonComponent (click)="previousQuestion()" [icon]="chevronLeft" class="grow" [iconDir]="'l'"
+        [preset]="'secondary'">Previous</buttonComponent>
+      }
+      @if(currentQuestionIndex !== questions.length - 1){
+      <buttonComponent (click)="nextQuestion()" [icon]="chevronRight" class="grow" [iconDir]="'r'" [preset]="'primary'">
+        Next</buttonComponent>
+      }@else{
+      <buttonComponent [icon]="check" (click)="submitExam()" class="grow" [iconDir]="'r'" [preset]="'primary'">Submit
+      </buttonComponent>
+      }
+    </div>
   </div>
+
+</div>
 }
 @if(examView === 'results') {
-  <app-results></app-results>
+<app-results [submissionData]="submissionData" [questionsArray]="questions" [submissionAnalytics]="submissionAnalytics"></app-results>
 }
