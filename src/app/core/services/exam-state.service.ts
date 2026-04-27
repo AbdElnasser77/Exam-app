@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamStateService {
-  private isExamModeControl = new BehaviorSubject<boolean>(false);
-
-  isExamMode$ = this.isExamModeControl.asObservable();
+  private examMode = signal(false);
 
   setExamMode(value: boolean) {
-    this.isExamModeControl.next(value);
+    this.examMode.set(value);
   }
-  
+
+  isExamMode = this.examMode.asReadonly();
 }

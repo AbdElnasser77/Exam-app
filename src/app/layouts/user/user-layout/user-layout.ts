@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet} from '@angular/router';
-import {LucideAngularModule } from "lucide-angular";
+import { RouterOutlet } from '@angular/router';
+import { LucideAngularModule } from "lucide-angular";
 import { Sidebar } from "../../../shared/components/ui/sidebar/sidebar";
 import { ExamStateService } from '../../../core/services/exam-state.service';
 
@@ -12,14 +12,11 @@ import { ExamStateService } from '../../../core/services/exam-state.service';
 })
 export class UserLayout {
 
-  private examStateService = inject(ExamStateService);
-  isExamMode:boolean = false;
+private examStateService = inject(ExamStateService);
+isExamMode = this.examStateService.isExamMode;
 
-  ngOnInit(){
-    this.examStateService.isExamMode$.subscribe(state=>{
+ngOnInit() {
 
-       this.isExamMode = state;
+}
 
-    })
-  }
 }

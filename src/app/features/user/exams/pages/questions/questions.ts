@@ -15,14 +15,12 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { Answers } from '../../models/answers';
 import { ExamStateService } from '../../../../../core/services/exam-state.service';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
 import { Modal } from "../../../../../shared/components/ui/modal/modal";
 
 
 @Component({
   selector: 'app-questions',
-  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, ConfirmDialog, Modal],
+  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, Modal],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
 })
@@ -35,14 +33,13 @@ export class Questions {
   items: MenuItem[] | undefined;
   Home: MenuItem[] | undefined;
   diplomaTitle: string = '';
-  examTitle: string = 'loading.';
+  examTitle: string = 'loading...';
   examId: string = '';
   diplomaId: string = '';
 
   questions: Question[] = [];
-  questionsCount: number = 0;
 
-  currentQuestionIndex: number = 0;
+  currentQuestionIndex!: number;
   allAnswers: Answers[] = [];
   showExitModal = false;
 
@@ -52,10 +49,10 @@ export class Questions {
   private readonly questionsService = inject(QuestionsService);
   private readonly router = inject(Router);
   private readonly examStateService = inject(ExamStateService);
-  private readonly confirmationService = inject(ConfirmationService);
 
   ngOnInit() {
     this.examStateService.setExamMode(true);
+    this.currentQuestionIndex = 0;
     if (isPlatformBrowser(this.platformID)) {
       const token = localStorage.getItem('token') ?? '';
 
@@ -97,7 +94,6 @@ export class Questions {
   ngOnDestroy() {
     this.examStateService.setExamMode(false);
   }
-
 
   nextQuestion() {
     this.currentQuestionIndex++;

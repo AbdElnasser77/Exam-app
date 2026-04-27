@@ -29,13 +29,13 @@
   <div class="flex flex-col gap-4 mt-6">
 
     <div class="exam-answers flex flex-col">
-
       @for(answer of questions[currentQuestionIndex]?.answers; track $index){
-      <div class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5">
+      <label class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5 cursor-pointer"
+        [attr.for]="answer.id">
         <p-radiobutton [inputId]="answer.id" [value]="answer.id"
           [(ngModel)]="allAnswers[currentQuestionIndex].answerId" />
-        <label [for]="answer.id" class="ml-2 ">{{ answer.text }}</label>
-      </div>
+        <span class="ml-2">{{ answer.text }}</span>
+      </label>
       }
     </div>
 
