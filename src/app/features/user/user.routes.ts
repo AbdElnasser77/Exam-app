@@ -15,7 +15,8 @@ export const UserRoutes: Routes = [
         loadComponent: () => import('./diplomas/pages/diplomas-home/diplomas-home').then((c) => c.DiplomasHome),
       },
       { path: 'diplomas/:diplomaId/exams', loadComponent: () => import('./exams/pages/exams/exams').then((c) => c.Exams),resolve:{diploma:diplomaResolver} },
-      { path: 'diplomas/:diplomaId/exams/:examId', loadComponent: () => import('./exams/pages/questions/questions').then((c) => c.Questions),resolve:{diploma:diplomaResolver} }
+      { path: 'diplomas/:diplomaId/exams/:examId', loadComponent: () => import('./exams/pages/questions/questions').then((c) => c.Questions),resolve:{diploma:diplomaResolver} },
+      { path: 'diplomas/:diplomaId/exams/:examId/results/:submissionId', loadComponent: () => import('./exams/pages/results/results').then((c) => c.Results),resolve:{diploma:diplomaResolver} }
     ],
   },
 ];

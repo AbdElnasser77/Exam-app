@@ -17,8 +17,25 @@ export class QuestionsService {
       Authorization:`Bearer ${token}`,
     })
 
-
     return this.http.get(`${this.baseURL}/api/questions/exam/${examID}`,{headers});
+
+  }
+
+  submitAnswers(body:any,token:string): Observable<any>{
+    const headers = new HttpHeaders({
+      Authorization:`Bearer ${token}`,
+    })
+
+    return this.http.post(`${this.baseURL}/api/submissions`,body,{headers});
+
+  }
+  
+  getResults(submissionId:string,token:string): Observable<any>{
+    const headers = new HttpHeaders({
+      Authorization:`Bearer ${token}`,
+    })
+
+    return this.http.get(`${this.baseURL}/api/submissions/${submissionId}`,{headers});
 
   }
 }

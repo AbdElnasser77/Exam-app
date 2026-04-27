@@ -1,5 +1,5 @@
 import { Question } from './../../models/questions';
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, inject, PLATFORM_ID } from '@angular/core';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from '../../../../../shared/components/ui/button/button';
 import { Header } from '../../../../../shared/components/ui/header/header';
@@ -16,11 +16,12 @@ import { FormsModule } from '@angular/forms';
 import { Answers } from '../../models/answers';
 import { ExamStateService } from '../../../../../core/services/exam-state.service';
 import { Modal } from "../../../../../shared/components/ui/modal/modal";
+import { Results } from "../results/results";
 
 
 @Component({
   selector: 'app-questions',
-  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, Modal],
+  imports: [Breadcrumb, Button, Header, LucideAngularModule, Countdown, ProgressBarModule, RadioButtonModule, FormsModule, Modal, Results],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
 })
@@ -30,13 +31,14 @@ export class Questions {
   readonly chevronRight = ChevronRightIcon;
   readonly check = CheckIcon;
 
+  examView: 'questions' | 'results' = 'questions';
   items: MenuItem[] | undefined;
   Home: MenuItem[] | undefined;
   diplomaTitle: string = '';
   examTitle: string = 'loading...';
   examId: string = '';
   diplomaId: string = '';
-
+  startedAt: string = '';
   questions: Question[] = [];
 
   currentQuestionIndex!: number;
@@ -49,6 +51,13 @@ export class Questions {
   private readonly questionsService = inject(QuestionsService);
   private readonly router = inject(Router);
   private readonly examStateService = inject(ExamStateService);
+  
+  // @HostListener('window:beforeunload', ['$event'])
+  // onBeforeUnload(event: BeforeUnloadEvent) {
+  //   if (this.examStateService.isExamMode()) {
+  //     event.preventDefault();
+  //   }
+  // }
 
   ngOnInit() {
     this.examStateService.setExamMode(true);
@@ -69,12 +78,11 @@ export class Questions {
         next: (res) => {
 
           this.questions = res.payload.questions;
-          console.log(this.questions);
           this.allAnswers = this.questions.map((q) => ({
             questionId: q.id,
             answerId: ''
           }))
-          console.log(this.allAnswers);
+          this.startedAt = new Date().toISOString();
         }
       })
 
@@ -104,8 +112,26 @@ export class Questions {
 
   submitExam() {
     console.log("all answers", this.allAnswers);
-  }
 
+    const body = {
+      examId: this.examId,
+      answers: this.allAnswers,
+      startedAt: this.startedAt,
+    }
+    console.log("submit exam body", body);
+
+    this.questionsService.submitAnswers(body, localStorage.getItem('token') ?? '').subscribe({
+      next:(res)=>{
+        console.log("submit exam response", res);
+      }
+    })
+
+
+
+
+    this.examView = 'results';
+
+  }
 
   onBackAttempt() {
     this.showExitModal = true;
