@@ -35,7 +35,7 @@ export class Questions {
   readonly chevronRight = ChevronRightIcon;
   readonly check = CheckIcon;
 
-  examView: 'questions' | 'results' = 'results';
+  examView: 'questions' | 'results' = 'questions';
   items: MenuItem[] | undefined;
   Home: MenuItem[] | undefined;
 
@@ -52,7 +52,9 @@ export class Questions {
 
   submissionData?: Submission;
   submissionAnalytics: Analytics[] = [];
-
+  progressValue: number = 0;
+  questionsCount: number = 0;
+  
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
   private readonly examService = inject(ExamService);
@@ -60,16 +62,20 @@ export class Questions {
   private readonly router = inject(Router);
   private readonly examStateService = inject(ExamStateService);
   private readonly messageService = inject(MessageService);
-  // @HostListener('window:beforeunload', ['$event'])
-  // onBeforeUnload(event: BeforeUnloadEvent) {
-  //   if (this.examStateService.isExamMode()) {
-  //     event.preventDefault();
-  //   }
-  // }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(event: BeforeUnloadEvent) {
+    if (this.examStateService.isExamMode()) {
+      event.preventDefault();
+    }
+  }
 
   ngOnInit() {
     this.examStateService.setExamMode(true);
     this.currentQuestionIndex = 0;
+
+    this.examView == 'results' ? this.progressValue = 100 : this.progressValue = 0;
+
     if (isPlatformBrowser(this.platformID)) {
       const token = localStorage.getItem('token') ?? '';
 
@@ -136,11 +142,10 @@ export class Questions {
         this.submissionData = res.payload.submission;
         this.submissionAnalytics = res.payload.analytics;
 
+        console.log("Submission Data:", this.submissionData);
+        console.log("Submission Analytics:", this.submissionAnalytics);
       }
     })
-
-
-
 
     this.examView = 'results';
 

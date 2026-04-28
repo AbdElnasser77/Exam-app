@@ -1,26 +1,50 @@
 <h2 class="text-3xl text-blue-600 py-5">results: </h2>
 
-<div class="flex gap-4 h-[500px] bg-amber-500">
+<div class="flex gap-4 h-[500px]">
     <div class="chart bg-sky-100 px-10  h-full flex items-center justify-center ">
         <app-donut-chart [correct]="submissionData?.correctAnswers"
             [incorrect]="submissionData?.wrongAnswers"></app-donut-chart>
     </div>
-    <div class="answers grow bg-white p-2.5 border-2 border-dashed border-blue-200 overflow-y-auto">
-        @for(question of questionsArray; track question.id){
-        <h3 class="text-lg text-blue-600">{{question.text}}</h3>
+   <div class="answers grow bg-white p-2.5 border-2 border-dashed border-blue-200 overflow-y-auto">
+  @for (result of submissionAnalytics; track result.questionId) {
 
-        <div class="exam-answers flex flex-col">
-            @for(answer of question.answers; track $index){
-            <label class="flex justify-start me-5 bg-gray-50 hover:bg-gray-100 px-2 py-4 my-1.5 cursor-pointer"
-                [attr.for]="answer.id">
-                <p-radiobutton [inputId]="answer.id" [value]="answer.id"
-                    []/>
-                <span class="ml-2">{{ answer.text }}</span>
-            </label>
-            }
-        </div>
+    <h3 class="text-xl text-blue-600 mb-2">{{ result.questionText }}</h3>
 
+    <div class="exam-answers flex flex-col">
+
+      <label class="flex justify-start items-center me-5 px-4 py-4 my-1.5 cursor-default"
+        [ngClass]="result.isCorrect ? 'bg-green-50 ' : 'bg-red-50'">
+
+        <span class="custom-radio" [ngClass]="result.isCorrect ? 'filled-green' : 'filled-red'"></span>
+
+        <span class="ml-3 flex-1" [ngClass]="result.isCorrect ? 'text-green-800' : 'text-red-800'">
+          {{ result.selectedAnswer.text }}
+        </span>
+
+        @if (result.isCorrect) {
+          <span class="ml-auto text-green-600 text-sm font-semibold">✓ Correct</span>
+        } @else {
+          <span class="ml-auto text-red-500 text-sm font-semibold">✗ Incorrect</span>
         }
 
+      </label>
+
+      @if (!result.isCorrect) {
+        <label class="flex justify-start items-center me-5 px-4 py-4 my-1.5 cursor-default bg-green-50">
+
+          <span class="custom-radio outline-green"></span>
+
+          <span class="ml-3 flex-1 text-green-800">{{ result.correctAnswer.text }}</span>
+          <span class="ml-auto text-green-600 text-sm font-semibold">Correct Answer</span>
+
+
+        </label>
+      }
+
     </div>
+
+  }
 </div>
+</div>
+
+<buttonComponent (click)="onBackAttempt()" [icon]="restart" [preset]="'primary'" [width]="'w-full'">Restart</buttonComponent>

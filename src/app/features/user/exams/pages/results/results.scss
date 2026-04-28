@@ -1,0 +1,39 @@
+.custom-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Selected correct → green filled */
+.custom-radio.filled-green {
+  border: 2px solid #16a34a;
+}
+.custom-radio.filled-green::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #16a34a;
+  display: block;
+}
+
+/* Selected wrong → red filled */
+.custom-radio.filled-red {
+  border: 2px solid #DC2626;
+}
+.custom-radio.filled-red::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #DC2626;
+  display: block;
+}
+
+.custom-radio.outline-green {
+  border: 2px solid #16a34a;
+}

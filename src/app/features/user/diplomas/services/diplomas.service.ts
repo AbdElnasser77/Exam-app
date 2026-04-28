@@ -14,7 +14,9 @@ export class DiplomasService {
       Authorization: `Bearer ${token}`
     })
 
-    return this.http.get(`https://exam-app.elevate-bootcamp.cloud/api/diplomas`, { headers });
+    const params = new HttpParams().set('limit',100);
+
+    return this.http.get(`https://exam-app.elevate-bootcamp.cloud/api/diplomas`, { headers,params });
   }
 
   getDiplomaById(token: string, diplomaId: string): Observable<any> {
