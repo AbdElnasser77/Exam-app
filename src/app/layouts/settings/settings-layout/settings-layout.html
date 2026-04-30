@@ -1,1 +1,45 @@
-<p>settings-layout works!</p>
+<p-breadcrumb [model]="items" />
+<div class="card flex justify-center">
+    <p-toast />
+</div>
+<div class="flex items-stretch gap-x-3 mb-5">
+    <buttonComponent (click)="onBackAttempt()" [preset]="'primary_outline'" [width]="''" class=""
+        [additional]="'h-full w-10'">
+        <i-lucide [img]="chevronLeft" class="text-blue-700" [strokeWidth]="1"></i-lucide>
+    </buttonComponent>
+    <app-header class="grow" [additional]="'!my-0 h-full'" [icon]="User">
+        Account Settings</app-header>
+</div>
+
+<div class="profile-container">
+    <div class="flex gap-5">
+        <div class="side-bar w-[400px] bg-white flex flex-col  ">
+            <div class="nav-items mt-5 mx-5 h-full">
+                <ul class="flex flex-col text-gray-500 gap-3">
+                    <li class="nav-item">
+                        <a class="flex px-5  py-1 items-center hover:text-blue-600 hover:bg-blue-50 transitio duration-200"
+                            routerLink="/settings/profile" routerLinkActive="text-blue-600 bg-blue-100 border-blue-500">
+                            <i-lucide [img]="CircleUser" [size]="35" [strokeWidth]="1" class="my-icon pe-1"></i-lucide>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="flex px-5 py-1 items-center hover:text-blue-600 hover:bg-blue-50 transition duration-200"
+                            routerLink="/settings/change-password"
+                            routerLinkActive="text-blue-600 bg-blue-100 border-blue-500">
+                            <i-lucide [img]="Lock" [size]="35" [strokeWidth]="1" class="my-icon pe-1"></i-lucide>
+                            <p>Change Password</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="logout-button">
+                
+            </div>
+        </div>
+        
+        <div class="bg-white w-full p-5">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

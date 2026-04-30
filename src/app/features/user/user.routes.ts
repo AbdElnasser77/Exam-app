@@ -2,21 +2,20 @@ import { Routes } from '@angular/router';
 import { UserLayout } from '../../layouts/user/user-layout/user-layout';
 import { authRequiredGuard } from '../../core/guards/auth-required';
 import { diplomaResolver } from './resolvers/diploma-resolver';
+import { SettingsRoutes } from '../settings/settings.routes';
 
 export const UserRoutes: Routes = [
   {
     path: '',
     component: UserLayout,
-    canMatch:[authRequiredGuard],
+    canMatch: [authRequiredGuard],
     children: [
       { path: '', redirectTo: 'diplomas', pathMatch: 'full' },
-      {
-        path: 'diplomas',
-        loadComponent: () => import('./diplomas/pages/diplomas-home/diplomas-home').then((c) => c.DiplomasHome),
-      },
-      { path: 'diplomas/:diplomaId/exams', loadComponent: () => import('./exams/pages/exams/exams').then((c) => c.Exams),resolve:{diploma:diplomaResolver} },
-      { path: 'diplomas/:diplomaId/exams/:examId', loadComponent: () => import('./exams/pages/questions/questions').then((c) => c.Questions),resolve:{diploma:diplomaResolver} },
-      { path: 'diplomas/:diplomaId/exams/:examId/results/:submissionId', loadComponent: () => import('./exams/pages/results/results').then((c) => c.Results),resolve:{diploma:diplomaResolver} }
+      { path: 'diplomas', loadComponent: () => import('./diplomas/pages/diplomas-home/diplomas-home').then((c) => c.DiplomasHome)},
+      { path: 'diplomas/:diplomaId/exams', loadComponent: () => import('./exams/pages/exams/exams').then((c) => c.Exams), resolve: { diploma: diplomaResolver } },
+      { path: 'diplomas/:diplomaId/exams/:examId', loadComponent: () => import('./exams/pages/questions/questions').then((c) => c.Questions), resolve: { diploma: diplomaResolver } },
+      { path: 'diplomas/:diplomaId/exams/:examId/results/:submissionId', loadComponent: () => import('./exams/pages/results/results').then((c) => c.Results), resolve: { diploma: diplomaResolver } },
+      { path: 'settings', loadChildren:() => import('../settings/settings.routes').then((c) => c.SettingsRoutes)}
     ],
   },
 ];

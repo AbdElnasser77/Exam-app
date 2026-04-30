@@ -52,7 +52,7 @@ export class Sidebar {
       {
         label: 'Account',
         lucideIcon: User,
-        routerLink: '/user',
+        routerLink: '/settings/profile',
       },
       {
         label: 'Dashboard',

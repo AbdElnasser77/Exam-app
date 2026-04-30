@@ -1,0 +1,9 @@
+
+:host ::ng-deep .p-breadcrumb ol li:last-child a {
+  color: gray !important;
+}
+
+:host ::ng-deep .p-breadcrumb ol li:last-child a :hover {
+  color: #1D4ED8 !important;
+}
+
