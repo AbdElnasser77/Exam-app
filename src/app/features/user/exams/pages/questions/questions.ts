@@ -4,7 +4,7 @@ import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from '../../../../../shared/components/ui/button/button';
 import { Header } from '../../../../../shared/components/ui/header/header';
 import { MenuItem } from 'primeng/api';
-import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, CircleQuestionMark, LucideAngularModule } from 'lucide-angular';
+import { CheckIcon, ChevronLeftIcon, ChevronRightIcon, CircleQuestionMark, LucideAngularModule, TriangleAlert } from 'lucide-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { ExamService } from '../../services/exam.service';
@@ -45,7 +45,7 @@ export class Questions {
   diplomaId: string = '';
   startedAt: string = '';
   questions: Question[] = [];
-
+  examDuration: number = 300;
   currentQuestionIndex!: number;
   allAnswers: Answers[] = [];
   showExitModal = false;
@@ -54,7 +54,7 @@ export class Questions {
   submissionAnalytics: Analytics[] = [];
   progressValue: number = 0;
   questionsCount: number = 0;
-  
+
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly platformID = inject(PLATFORM_ID);
   private readonly examService = inject(ExamService);
@@ -63,6 +63,11 @@ export class Questions {
   private readonly examStateService = inject(ExamStateService);
   private readonly messageService = inject(MessageService);
 
+  readonly backButtonModal = {
+    icon: TriangleAlert,
+    header: 'Exit Exam?',
+    body: 'Are you sure you want to exit the exam? Your progress will be lost.'
+  }
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(event: BeforeUnloadEvent) {
     if (this.examStateService.isExamMode()) {
@@ -141,9 +146,6 @@ export class Questions {
       next: (res) => {
         this.submissionData = res.payload.submission;
         this.submissionAnalytics = res.payload.analytics;
-
-        console.log("Submission Data:", this.submissionData);
-        console.log("Submission Analytics:", this.submissionAnalytics);
       }
     })
 
@@ -151,6 +153,19 @@ export class Questions {
 
   }
 
+  restartExam() {
+    this.currentQuestionIndex = 0;
+    this.allAnswers = this.questions.map((q) => ({
+      questionId: q.id,
+      answerId: ''
+    }))
+    this.examView = 'questions';
+    this.examStateService.setExamMode(true);
+    this.progressValue = 0
+    this.startedAt = new Date().toISOString();
+    this.examDuration = 300;
+    
+  }
   onBackAttempt() {
     this.showExitModal = true;
   }
@@ -164,6 +179,4 @@ export class Questions {
     this.router.navigate(['/diplomas']);
   }
 
-  showError() {
-  }
 }

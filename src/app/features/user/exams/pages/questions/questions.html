@@ -1,5 +1,5 @@
 <p-breadcrumb [model]="items" />
-<app-modal [visible]="showExitModal" (cancel)="onCancelExit()" (confirm)="onConfirmExit()" />
+<app-modal [visible]="showExitModal" [type]="'exit'" [content]="backButtonModal" [style]="'danger'" (cancel)="onCancelExit()" (confirm)="onConfirmExit()" />
 <div class="card flex justify-center">
   <p-toast />
 </div>
@@ -31,7 +31,7 @@
 
   @if(examView === 'questions') {
   <div class="w-[1px] h-20 bg-gray-300"></div>
-  <app-countdown [duration]="300"></app-countdown>
+  <app-countdown [duration]="examDuration"></app-countdown>
   }
 </div>
 
@@ -69,5 +69,5 @@
 </div>
 }
 @if(examView === 'results') {
-<app-results [submissionData]="submissionData" [questionsArray]="questions" [submissionAnalytics]="submissionAnalytics"></app-results>
+<app-results [submissionData]="submissionData" [questionsArray]="questions" [submissionAnalytics]="submissionAnalytics" [diplomaId]="diplomaId" (resetExam)="restartExam()"></app-results>
 }

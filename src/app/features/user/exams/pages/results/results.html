@@ -1,4 +1,8 @@
-<h2 class="text-3xl text-blue-600 py-5">results: </h2>
+<app-modal [visible]="modalState.visible && modalState.type === 'restart'" [style]="'primary'" [content]="restartModal" (cancel)="closeModal()" (confirm)="onConfirm()" />
+<app-modal [visible]="modalState.visible && modalState.type === 'explore'" [style]="'primary'" [content]="ExploreModal" (cancel)="closeModal()" (confirm)="onConfirm()" />
+
+<div class="mx-10">
+    <h2 class="text-3xl text-blue-600 font-bold py-5">Results: </h2>
 
 <div class="flex gap-4 h-[500px]">
     <div class="chart bg-sky-100 px-10  h-full flex items-center justify-center ">
@@ -46,5 +50,8 @@
   }
 </div>
 </div>
-
-<buttonComponent (click)="onBackAttempt()" [icon]="restart" [preset]="'primary'" [width]="'w-full'">Restart</buttonComponent>
+<div class="flex gap-4 mt-7">
+    <buttonComponent (click)="openModal('restart')" [icon]="restart" [iconDir]="'l'" [preset]="'primary_outline'" [width]="'w-full'" class="w-full">Restart</buttonComponent>
+    <buttonComponent (click)="openModal('explore')" [icon]="folderSearch" [iconDir]="'l'" [preset]="'primary'" [width]="'w-full'" class="w-full">Explore</buttonComponent>
+</div>
+</div>
