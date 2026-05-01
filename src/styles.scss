@@ -54,7 +54,16 @@ img{
     border-color: #2563eb !important;
     box-shadow: 0 0 0 1px #bfdbfe !important;
 }
-
+.disabled{
+    background-color: #e5e7eb !important;
+    border: none !important;
+    outline: none !important;
+    cursor: default !important;
+}
+.disabled:focus{
+    border: none !important;
+    outline: none !important;
+}
 
 .p-breadcrumb ol li:last-child a {
   color: #2563EB !important;

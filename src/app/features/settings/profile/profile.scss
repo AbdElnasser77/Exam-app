@@ -16,6 +16,7 @@
     border: 1px solid #d1d5db;
     transition: all 0.2s;
 }
+
 ::ng-deep ngx-intl-tel-input .iti input.custom-input:hover {
     border-color: #9ca3af;
 }
@@ -25,8 +26,9 @@
     box-shadow: 0 0 0 1px #bfdbfe !important;
     outline: none !important;
 }
-::ng-deep ngx-intl-tel-input .iti input ngx-intl-tel-input{
-      border-color: #2563eb !important;
+
+::ng-deep ngx-intl-tel-input .iti input ngx-intl-tel-input {
+    border-color: #2563eb !important;
     box-shadow: 0 0 0 1px #bfdbfe !important;
     outline: none !important;
 }
@@ -34,4 +36,17 @@
 ::ng-deep ngx-intl-tel-input .iti__country-list {
     overflow-y: auto !important;
     max-height: 220px;
+}
+
+.disabled {
+    border-radius: 0 !important;
+    border: 1px solid #d1d5db;
+}
+
+.readonly {
+    border-color: #d1d5db !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+
 }

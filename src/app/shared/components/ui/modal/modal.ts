@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, PLATFORM_ID } from '@angular/core';
 import { ChevronRight, LucideAngularModule, X } from "lucide-angular";
 import { ModalContent } from '../../../../features/user/exams/models/modal-content';
 import { Stepper, StepList, Step, StepPanels, StepPanel } from "primeng/stepper";
@@ -6,6 +6,8 @@ import { ValidationError } from "../../../../features/auth/components/validation
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from "../button/button";
 import { Verify } from "../../../../features/auth/components/verify-otp/verify";
+import { CurrentUserService } from '../../../../core/services/current-user.service';
+import { isPlatformBrowser } from '@angular/common';
 
 export type ModalType = 'exit' | 'restart' | 'explore' | 'OTP' | 'Delete';
 
@@ -37,9 +39,11 @@ export class Modal {
   step: number = 1;
 
   ngOnInit() {
+
     this.emailForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]]
     })
+
   }
 
   onConfirm() {
@@ -70,5 +74,5 @@ export class Modal {
       this.step++;
     }
   }
-}
 
+}
