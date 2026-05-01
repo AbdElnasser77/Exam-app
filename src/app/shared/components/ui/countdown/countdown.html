@@ -9,7 +9,7 @@
 
   <div class="timer-text">
     @if (isBrowser) {
-    <countdown [config]="{ leftTime: duration, format: 'mm:ss', notify: notifyTimes }" (event)="handleEvent($event)">
+    <countdown [config]="{ leftTime: duration / 1000, format: 'mm:ss', notify: notifyTimes }" (event)="handleEvent($event)">
     </countdown>
     }
   </div>
@@ -17,7 +17,7 @@
 
 }@else{
   @if (isBrowser) {
-  <countdown [config]="{ leftTime: duration, format: 's', notify: notifyTimes }" (event)="handleEvent($event)">
+  <countdown [config]="{ leftTime: duration / 1000, format: 's', notify: notifyTimes }" (event)="handleEvent($event)">
   </countdown>
   }
 }

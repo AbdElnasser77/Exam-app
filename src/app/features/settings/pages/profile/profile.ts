@@ -158,9 +158,6 @@ export class Profile {
           this.router.navigate(['/auth/login']);
           localStorage.clear();
         },
-        error: (e) => {
-          console.log(e);
-        }
       });
     }
   }

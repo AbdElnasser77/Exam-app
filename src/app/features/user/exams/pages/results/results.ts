@@ -82,10 +82,8 @@ export class Results {
     if (this.modalState.type === 'exit') {
       this.router.navigate(['/diplomas']);
     } else if (this.modalState.type === 'restart') {
-      console.log('restarting..')
       this.resetExam.emit();
     } else if (this.modalState.type === 'explore') {
-      console.log('explore exams');
       this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
     }
 

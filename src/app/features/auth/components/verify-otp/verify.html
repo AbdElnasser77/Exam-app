@@ -11,7 +11,7 @@
         <p-inputOtp [length]="6" size="large" [styleClass]="'!rounded-0'" [integerOnly]="true" (onChange)="sendOTP($event)"></p-inputOtp>
 
         @if (showCountdown) {
-          <p class="pt-5 text-gray-500 text-center">You can request another code in: <app-countdown [duration]="59" [style]="'none'" (done)="onCountdownDone()"></app-countdown>s</p>
+          <p class="pt-5 text-gray-500 text-center">You can request another code in: <app-countdown [duration]="59000" [style]="'none'" (done)="onCountdownDone()"></app-countdown>s</p>
         }
 
         @if (showResend) {

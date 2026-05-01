@@ -46,6 +46,8 @@ export class Questions {
   startedAt: string = '';
   questions: Question[] = [];
   examDuration: number = 300;
+  private originalDuration: number = 300;
+  examLoaded: boolean = false;
   currentQuestionIndex!: number;
   allAnswers: Answers[] = [];
   showExitModal = false;
@@ -96,7 +98,6 @@ export class Questions {
       this.questionsService.getExamQuestions(this.examId, token).subscribe({
         next: (res) => {
           this.questions = res.payload.questions;
-          console.log(this.questions);
           this.allAnswers = this.questions.map((q) => ({
             questionId: q.id,
             answerId: ''
@@ -108,6 +109,9 @@ export class Questions {
       this.examService.getExamById(token, this.examId).subscribe({
         next: (res) => {
           this.examTitle = res.payload.exam.title;
+          this.examDuration = res.payload.exam.duration * 60 * 1000;
+          this.originalDuration = res.payload.exam.duration * 60 * 1000;
+          this.examLoaded = true;
           this.items = [
             { label: 'Diplomas' },
             { label: this.diplomaTitle },
@@ -150,7 +154,6 @@ export class Questions {
     })
 
     this.examView = 'results';
-
   }
   
   onCountdownDone() {
@@ -167,7 +170,7 @@ export class Questions {
     this.examStateService.setExamMode(true);
     this.progressValue = 0
     this.startedAt = new Date().toISOString();
-    this.examDuration = 300;
+    this.examDuration = this.originalDuration;
     
   }
   onBackAttempt() {

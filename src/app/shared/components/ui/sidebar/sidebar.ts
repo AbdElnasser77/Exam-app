@@ -31,6 +31,8 @@ import { UserProfile } from '../../../../core/models/user-profile';
   styleUrl: './sidebar.scss',
 })
 export class Sidebar {
+  @Input() Role: 'Admin' | 'User' = 'User';
+
   readonly folderCode = FolderCode;
   readonly GraduationCap = GraduationCap;
   readonly Settings = Settings;
@@ -54,11 +56,11 @@ export class Sidebar {
         lucideIcon: User,
         routerLink: '/settings/profile',
       },
-      {
-        label: 'Dashboard',
-        lucideIcon: Settings,
-        routerLink: '/dashboard', 
-      },
+      // {
+      //   label: 'Dashboard',
+      //   lucideIcon: Settings,
+      //   routerLink: '/dashboard', 
+      // },
       {
         label: 'Logout',
         lucideIcon: LogOut,

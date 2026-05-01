@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output, PLATFORM_ID } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { CountdownComponent } from 'ngx-countdown';
 
 @Component({
@@ -8,18 +8,21 @@ import { CountdownComponent } from 'ngx-countdown';
   templateUrl: './countdown.html',
   styleUrl: './countdown.scss',
 })
-export class Countdown {
+export class Countdown implements OnInit {
   private platformId = inject(PLATFORM_ID);
   isBrowser = isPlatformBrowser(this.platformId);
-  @Input() duration!:number;
+  @Input() duration!: number; // milliseconds
   @Input() style: 'circle' | 'none' = 'circle';
   @Output() done = new EventEmitter<void>();
 
-  timeLeft = this.duration * 1000;
+  timeLeft = 0;
   radius = 40;
   circumference = 2 * Math.PI * this.radius;
+  notifyTimes = 0;
 
-  notifyTimes = 0; 
+  ngOnInit() {
+    this.timeLeft = this.duration;
+  }
 
   handleEvent(e: any) {
     if (e.left !== undefined) {
@@ -32,8 +35,7 @@ export class Countdown {
   }
 
   get offset() {
-    const durationMs = this.duration * 1000;
-    const ratio = this.timeLeft / durationMs;
+    const ratio = this.timeLeft / this.duration;
     return this.circumference * (1 - ratio);
   }
 }
