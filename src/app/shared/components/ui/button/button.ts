@@ -8,7 +8,7 @@ import { ChevronDown, LucideAngularModule, LucideIconData } from "lucide-angular
   styleUrl: './button.scss',
 })
 export class Button {
-  @Input() preset: 'primary' | 'primary_outline' | 'secondary' | 'success' = 'primary';
+  @Input() preset: 'primary' | 'primary_outline' | 'secondary' | 'danger' = 'primary';
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() icon?: LucideIconData;
   @Input() iconDir: 'l' | 'r' | 's' | 'e' = 'e';
@@ -30,7 +30,7 @@ export class Button {
       primary: "text-white bg-blue-700 border border-transparent hover:bg-blue-700/95",
       primary_outline: "text-black border border-blue-600 bg-blue-50 hover:bg-blue-100",
       secondary: "text-gray-700 bg-gray-100 hover:bg-gray-200",
-      success: "text-white bg-green-600 hover:bg-green-700",
+      danger: "text-red-500 bg-red-50 hover:bg-red-100",
     }
   }
 }

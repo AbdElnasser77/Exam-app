@@ -1,21 +1,23 @@
+@if(style === 'circle') {
+
 <div class="circle-container">
- <svg width="100" height="100">
+  <svg width="100" height="100">
     <circle cx="50" cy="50" r="40" class="bg-circle"></circle>
-    <circle
-      cx="50" cy="50" r="40"
-      class="progress-circle"
-      [attr.stroke-dasharray]="circumference"
-      [attr.stroke-dashoffset]="offset"
-    ></circle>
+    <circle cx="50" cy="50" r="40" class="progress-circle" [attr.stroke-dasharray]="circumference"
+      [attr.stroke-dashoffset]="offset"></circle>
   </svg>
 
   <div class="timer-text">
     @if (isBrowser) {
-      <countdown
-        [config]="{ leftTime: duration, format: 'mm:ss', notify: notifyTimes }"
-        (event)="handleEvent($event)"
-      >
-      </countdown>
+    <countdown [config]="{ leftTime: duration, format: 'mm:ss', notify: notifyTimes }" (event)="handleEvent($event)">
+    </countdown>
     }
   </div>
 </div>
+
+}@else{
+  @if (isBrowser) {
+  <countdown [config]="{ leftTime: duration, format: 's', notify: notifyTimes }" (event)="handleEvent($event)">
+  </countdown>
+  }
+}

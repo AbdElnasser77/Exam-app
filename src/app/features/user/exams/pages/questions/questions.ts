@@ -152,6 +152,10 @@ export class Questions {
     this.examView = 'results';
 
   }
+  
+  onCountdownDone() {
+    this.submitExam();
+  }
 
   restartExam() {
     this.currentQuestionIndex = 0;

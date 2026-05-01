@@ -31,7 +31,7 @@
 
   @if(examView === 'questions') {
   <div class="w-[1px] h-20 bg-gray-300"></div>
-  <app-countdown [duration]="examDuration"></app-countdown>
+  <app-countdown [duration]="examDuration" (done)="onCountdownDone()"></app-countdown>
   }
 </div>
 

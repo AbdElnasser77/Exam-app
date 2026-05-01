@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Header } from "../../../shared/components/ui/header/header";
-import { ChevronLeft, CircleUser, Lock, LucideAngularModule, User } from "lucide-angular";
+import { ChevronLeft, CircleUser, Lock, LogOut, LucideAngularModule, TriangleAlert, User } from "lucide-angular";
 import { Button } from "../../../shared/components/ui/button/button";
 import { Toast } from "primeng/toast";
 import { Modal } from "../../../shared/components/ui/modal/modal";
@@ -20,8 +20,10 @@ export class SettingsLayout {
   readonly User = User;
   readonly CircleUser = CircleUser;
   readonly Lock = Lock;
+  readonly logoutIcon = LogOut;
 
   private readonly router = inject(Router);
+
 
   ngOnInit() {
     this.items = [
@@ -35,6 +37,11 @@ export class SettingsLayout {
 
   onBackAttempt() {
     this.router.navigate(['/diplomas']);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
 }

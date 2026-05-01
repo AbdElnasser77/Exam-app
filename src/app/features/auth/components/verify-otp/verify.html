@@ -1,4 +1,4 @@
-<div class="max-w-lg mx-auto flex flex-col justify-center">
+<div class="mx-auto flex flex-col justify-center">
 
 
     <h2 class="text-2xl text-blue-700 font-bold pb-4">Verify OTP</h2>
@@ -10,7 +10,8 @@
 
     <div class="pt-7 mx-auto text-center">
         <p-inputOtp [length]="6" size="large" [styleClass]="'!rounded-0'"  [integerOnly]="true"  (onChange)="sendOTP($event)"></p-inputOtp>
-        <p class="pt-5 text-gray-500">You can request another code in:  s</p>
+        
+        <p class="pt-5 text-gray-500 text-center">You can request another code in:<app-countdown [duration]="59" [style]="'none'"></app-countdown>s</p>
     </div>
  
 </div>

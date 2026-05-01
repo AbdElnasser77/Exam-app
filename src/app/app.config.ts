@@ -1,8 +1,10 @@
 import {
   ApplicationConfig,
+  importProvidersFrom,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -24,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     provideAnimations(),
+    importProvidersFrom(BsDropdownModule.forRoot()),
     ConfirmationService,
     providePrimeNG({
       theme: {

@@ -31,7 +31,6 @@ export class Results {
   submissionMap = new Map<string, []>();
 
   isModalVisible: boolean = false;
-  private readonly platformID = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   private readonly examStateService = inject(ExamStateService);
 
@@ -52,8 +51,8 @@ export class Results {
     header: 'Explore Exams',
     body: 'Are you sure you want to leave this page?'
   };
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.examStateService.setExamMode(false);
   }
 
@@ -65,36 +64,32 @@ export class Results {
     type: null as ModalType | null
   }
 
-  openModal(type: ModalType){
+  openModal(type: ModalType) {
     this.modalState = {
-      visible:true,
+      visible: true,
       type
     }
   }
 
-  closeModal(){
+  closeModal() {
     this.modalState = {
-      visible:false,
-      type:null
+      visible: false,
+      type: null
     }
   }
 
-  onConfirm(){
-  if(this.modalState.type === 'exit'){
-    this.router.navigate(['/diplomas']);
-  }
+  onConfirm() {
+    if (this.modalState.type === 'exit') {
+      this.router.navigate(['/diplomas']);
+    } else if (this.modalState.type === 'restart') {
+      console.log('restarting..')
+      this.resetExam.emit();
+    } else if (this.modalState.type === 'explore') {
+      console.log('explore exams');
+      this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
+    }
 
-  else if(this.modalState.type === 'restart'){
-    console.log('restarting..')
-    this.resetExam.emit();
+    this.closeModal();
   }
-
-  else if(this.modalState.type === 'explore'){
-    console.log('explore exams');
-    this.router.navigate([`/diplomas/${this.diplomaId}/exams`]);
-  }
-
-  this.closeModal();
-}
 
 }

@@ -1,0 +1,99 @@
+::ng-deep p-step{
+  pointer-events: none;
+}
+
+::ng-deep p-step.p-step.p-step-active .step{
+  position: relative;
+}
+
+::ng-deep p-step.p-step.p-step-active .step::before{
+  content: '';
+  width: 100%;
+  height: 100%;
+  left: 0;
+  z-index: 111;
+  position: absolute;
+  outline: #DBEAFE solid 4px;
+}
+
+::ng-deep .p-step-active {
+    padding: 0 !important;
+}
+
+
+::ng-deep .p-stepper-separator{
+      background: none !important;
+  border-top: 2px dashed #2563eb;
+}
+
+::ng-deep .p-step:has(~ .p-step-active) .p-stepper-separator{
+  background: none !important;
+  border-top: 2px solid #2563eb;
+}
+
+::ng-deep .p-step-number{
+    display: none !important;
+}
+
+::ng-deep ngx-intl-tel-input {
+    display: block;
+    width: 100%;
+}
+
+::ng-deep ngx-intl-tel-input .iti {
+    display: block !important;
+    width: 100%;
+}
+
+::ng-deep ngx-intl-tel-input .iti input.custom-input {
+    width: 100%;
+    font-size: 0.875rem !important;
+    border-radius: 0 !important;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    transition: all 0.2s;
+}
+::ng-deep ngx-intl-tel-input .iti input.custom-input:hover {
+    border-color: #9ca3af;
+}
+
+::ng-deep ngx-intl-tel-input .iti input.custom-input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 1px #bfdbfe !important;
+    outline: none !important;
+}
+::ng-deep ngx-intl-tel-input .iti input ngx-intl-tel-input{
+      border-color: #2563eb !important;
+    box-shadow: 0 0 0 1px #bfdbfe !important;
+    outline: none !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__country-list {
+    overflow-y: auto !important;
+    max-height: 220px;
+}
+input.custom-input.p-inputtext {
+  font-size: 0.875rem !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  width: 100% !important;
+}
+
+input.custom-input,
+.p-inputtext.custom-input {
+  font-size: 0.875rem;
+  border-radius: 0;
+  display: block;
+  width: 100%;
+  border: 1px solid #d1d5db; 
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none; 
+  transition: all 0.2s ease;
+}
+
+input.custom-input:focus,
+.p-inputtext.custom-input:focus {
+  border-color: #2563eb; 
+  outline: none; 
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); 
+}
