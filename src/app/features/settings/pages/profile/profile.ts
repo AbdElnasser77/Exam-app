@@ -1,6 +1,6 @@
-import { Component, ElementRef, inject, PLATFORM_ID, ViewChild, viewChild } from '@angular/core';
-import { ValidationError } from '../../auth/components/validation-error/validation-error';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { ValidationError } from '../../../auth/components/validation-error/validation-error';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import {
@@ -9,12 +9,16 @@ import {
   CountryISO,
   PhoneNumberFormat,
 } from 'ngx-intl-tel-input';
-import { Button } from "../../../shared/components/ui/button/button";
-import { Pencil, LucideAngularModule, PencilLine, TriangleAlert } from 'lucide-angular';
-import { Modal, ModalType } from "../../../shared/components/ui/modal/modal";
-import { CurrentUserService } from '../../../core/services/current-user.service';
+import { Button } from "../../../../shared/components/ui/button/button";
+import { LucideAngularModule, PencilLine, TriangleAlert } from 'lucide-angular';
+import { Modal, ModalType } from "../../../../shared/components/ui/modal/modal";
+import { CurrentUserService } from "../../../../core/services/current-user.service";
 import { isPlatformBrowser } from '@angular/common';
-import { UserProfile } from '../../../core/models/user-profile';
+import { UserProfile } from "../../../../core/models/user-profile";
+import { UpdateProfile } from '../../services/update-profile';
+import { ProfileData } from '../../models/profile-data';
+import { MessageService } from 'primeng/api';
+import { Toast } from "primeng/toast";
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +31,8 @@ import { UserProfile } from '../../../core/models/user-profile';
     NgxIntlTelInputModule,
     Button,
     LucideAngularModule,
-    Modal
+    Modal,
+    Toast
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
@@ -43,9 +48,14 @@ export class Profile {
   private fb = inject(FormBuilder);
   private readonly currentUserService = inject(CurrentUserService);
   private readonly platformID = inject(PLATFORM_ID);
+  private readonly updateProfile = inject(UpdateProfile);
+  private readonly messageService = inject(MessageService);
 
   token: string = '';
   userData?: UserProfile;
+  data: ProfileData = {};
+  errorMessage: string = '';
+  errors: string[] = [];
 
   content: { icon: any; header: string; body: string } = {
     icon: TriangleAlert,
@@ -55,10 +65,10 @@ export class Profile {
 
   ngOnInit() {
     this.profileSettings = this.fb.group({
-      firstName: [''],
-      lastName: [''],
-      phone: [''],
-      userName: ['',{disabled: true}],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20),]],
+      phone: ['', [Validators.required]],
+      userName: ['', { disabled: true }],
       email: [''],
     });
 
@@ -67,7 +77,6 @@ export class Profile {
       this.currentUserService.getLoggedUser(this.token).subscribe({
         next: (res) => {
           this.userData = res.payload.user;
-          console.log(this.userData);
           this.profileSettings.patchValue({
             firstName: this.userData?.firstName,
             lastName: this.userData?.lastName,
@@ -80,13 +89,37 @@ export class Profile {
     }
   }
 
+  saveChanges() {
+    if (this.profileSettings.invalid) {
+      this.profileSettings.markAllAsTouched();
+      return;
+    }
+  
+    this.errorMessage = '';
+    this.errors = [];
+    this.data = {
+      firstName: this.profileSettings.get('firstName')?.value,
+      lastName: this.profileSettings.get('lastName')?.value,
+      phone: this.profileSettings.get('phone')?.value.nationalNumber.replace(/\s/g, '')
+    }
+    this.updateProfile.updateProfile(this.token, this.data).subscribe({
+      next: () => {
+        this.showToaster();
+      },
+      error: (e) => {
+        if (e.error?.errors) {
+          this.errors = e.error.errors.message;
+        } else {
+          this.errorMessage = e.error?.message || 'Something went wrong. Please try again.';
+        }
+      }
+    });
+  }
 
 
   modalState = {
     visible: false,
-    // visible:true,
     type: null as ModalType | null,
-    // type:'OTP' as ModalType | null,
   }
 
   openModal(type: ModalType) {
@@ -94,7 +127,6 @@ export class Profile {
       visible: true,
       type
     }
-
   }
 
   closeModal() {
@@ -110,7 +142,15 @@ export class Profile {
     } else if (this.modalState.type == 'Delete') {
       console.log('Delete confirmed');
     }
-
   }
+
+  showToaster() {
+    this.messageService.add({
+      summary: 'Profile has been updated successfully',
+      key: 'br',
+      life: 3000
+    });
+  }
+
 
 }

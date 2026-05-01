@@ -5,8 +5,8 @@ export const SettingsRoutes:Routes = [
     {path:'',component:SettingsLayout,
         children:[
             {path:'',redirectTo:'profile',pathMatch:'full'},
-            {path:'profile',loadComponent:()=>import('./profile/profile').then((c)=>c.Profile)},
-            {path:'change-password',loadComponent:()=>import('./change-password/change-password').then((c)=>c.ChangePassword)},
+            {path:'profile',loadComponent:()=>import('./pages/profile/profile').then((c)=>c.Profile)},
+            {path:'change-password',loadComponent:()=>import('./pages/change-password/change-password').then((c)=>c.ChangePassword)},
         ]
     }
 ]
