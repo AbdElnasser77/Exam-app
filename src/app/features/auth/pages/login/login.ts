@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { Button } from '../../../../shared/components/ui/button/button';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CircleX, LucideAngularModule, X } from 'lucide-angular';
+import { CircleX, LucideAngularModule } from 'lucide-angular';
 import { InputText } from 'primeng/inputtext';
 import { Password } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { ValidationError } from "../../components/validation-error/validation-error";
+import { AuthService } from 'auth';
 
 @Component({
   selector: 'app-login',
@@ -15,17 +16,18 @@ import { ValidationError } from "../../components/validation-error/validation-er
   styleUrl: './login.scss',
 })
 export class Login {
-
   readonly circleX = CircleX;
   loginForm!: FormGroup;
-  invalid: boolean = false;
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
-
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       password: [
         '',
         [
@@ -36,15 +38,24 @@ export class Login {
     });
   }
 
-
   login() {
-    if (this.loginForm.valid) console.log('valid', this.loginForm);
-    else {
-      console.log('invalid', this.loginForm);
-      this.invalid = true;
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-
-        console.log(this.loginForm.controls)
+      return;
     }
+
+    this.errorMessage = '';
+    this.isLoading = true;
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.payload!.token);
+        this.router.navigate(['/diplomas']);
+      },
+      error: (e) => {
+        this.isLoading = false;
+        this.errorMessage = e.error?.message || 'Invalid credentials. Please try again.';
+      },
+    });
   }
 }

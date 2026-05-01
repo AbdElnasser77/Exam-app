@@ -34,3 +34,49 @@
 ::ng-deep .p-step-number{
     display: none !important;
 }
+
+
+
+
+
+::ng-deep ngx-intl-tel-input {
+    display: block;
+    width: 100%;
+}
+
+::ng-deep ngx-intl-tel-input .iti {
+    display: block !important;
+    width: 100%;
+}
+
+::ng-deep ngx-intl-tel-input .iti input.custom-input {
+    width: 100%;
+    font-size: 0.875rem !important;
+    border-radius: 0 !important;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    transition: all 0.2s;
+}
+
+::ng-deep ngx-intl-tel-input .iti input.custom-input:hover {
+    border-color: #9ca3af;
+}
+
+::ng-deep ngx-intl-tel-input .iti input.custom-input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 1px #bfdbfe !important;
+    outline: none !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti input ngx-intl-tel-input {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 1px #bfdbfe !important;
+    outline: none !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__country-list {
+    z-index: 9999 !important;
+    position: fixed !important;
+    height: 220px !important;
+    overflow-y: auto !important;
+}

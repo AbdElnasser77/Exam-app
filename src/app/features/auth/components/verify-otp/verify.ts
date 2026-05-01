@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LucideAngularModule, MoveLeft } from 'lucide-angular';
-import { ActivatedRoute } from "@angular/router";
 import { InputOtpChangeEvent, InputOtpModule } from 'primeng/inputotp';
-import { ResendTimerService } from '../../services/resend-timer-service';
 import { Countdown } from "../../../../shared/components/ui/countdown/countdown";
 
 @Component({
@@ -14,19 +12,31 @@ import { Countdown } from "../../../../shared/components/ui/countdown/countdown"
 export class Verify {
   readonly moveLeft = MoveLeft;
   @Input() email!: string;
-  @Output() editReq = new EventEmitter<void>;
-  @Output() nextStep = new EventEmitter<void>; 
+  @Output() editReq = new EventEmitter<void>();
+  @Output() nextStep = new EventEmitter<string>();
+  @Output() resend = new EventEmitter<void>();
 
-  constructor(private activatedRoute: ActivatedRoute, private timer: ResendTimerService) { }
+  showResend = false;
+  showCountdown = true;
 
-  editButton(){
+  editButton() {
     this.editReq.emit();
   }
 
-  sendOTP(otpEvent:InputOtpChangeEvent){ // this will call the service later but now is used for navigation
-    if(otpEvent.value.length === 6){
-      this.nextStep.emit();
+  sendOTP(otpEvent: InputOtpChangeEvent) {
+    if (otpEvent.value.length === 6) {
+      this.nextStep.emit(otpEvent.value);
     }
   }
 
+  onCountdownDone() {
+    this.showResend = true;
+  }
+
+  onResend() {
+    this.resend.emit();
+    this.showResend = false;
+    this.showCountdown = false;
+    setTimeout(() => this.showCountdown = true, 0);
+  }
 }

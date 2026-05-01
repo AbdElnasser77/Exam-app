@@ -71,9 +71,11 @@
                   <input #emailInput formControlName="email" type="email" id="email" class="custom-input w-full"
                     placeholder="user@example.com" pInputText required />
 
-                  <validation-error [control]="registerForm.get('email')" [InputLabel]="'email'"></validation-error>
+                  <validation-error [control]="emailControl" InputLabel="email"></validation-error>
                 </div>
-
+                @if (errorMessage) {
+                  <p class="text-red-600 text-sm mt-3">{{ errorMessage }}</p>
+                }
               </div>
               <div class="pt-6 w-full">
                 <buttonComponent [preset]="'primary_outline'" [icon]="chevronR" (click)="emailStepValidation()">Next
@@ -94,7 +96,10 @@
           <p-step-panel [value]="2">
             <ng-template #content let-activateCallback="activateCallback">
               <otp-verify [email]="this.registerForm.get('email')?.value" (editReq)="stepBack()"
-                (nextStep)="nextStep()"></otp-verify>
+                (nextStep)="onOtpVerified($event)"></otp-verify>
+              @if (errorMessage) {
+                <p class="text-red-600 text-sm mt-3">{{ errorMessage }}</p>
+              }
             </ng-template>
           </p-step-panel>
           <p-step-panel [value]="3">
@@ -129,31 +134,15 @@
 
               <div class="mb-5">
                 <label for="phone" class="block mb-1 font-medium">Phone</label>
-
-                <div class="flex rounded-base">
-                  <div>
-                    <div class="flex h-full items-center">
-                      <img [src]="'https://flagcdn.com/16x12/' + selectedCountry?.code.toLowerCase() + '.webp'"
-                        class=" w-5 h-3 pointer-events-none" />
-                      <select formControlName="country" class="custom-input h-full w-full">
-                        @for (c of countries; track $index){
-                        <option [value]="c.code">
-                          {{ c.code }}({{ c.dialCode }})
-                        </option>
-                        }
-                      </select>
-                    </div>
-                    <i-lucide [img]="selectIcon" [size]="17" class="pointer-events-none">
-                    </i-lucide>
-                  </div>
-
-                  <input formControlName="phone" type="tel" id="phone" class="custom-input" placeholder="1012345678"
-                    pInputText required />
-
-                  <validation-error [control]="registerForm.get('phone')" [InputLabel]="'phone'"></validation-error>
-
-                </div>
-
+                <ngx-intl-tel-input formControlName="phone" [cssClass]="'custom-input'"
+                  [preferredCountries]="[CountryISO.Egypt, CountryISO.UnitedArabEmirates, CountryISO.UnitedStates]"
+                  [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                  [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Egypt"
+                  [separateDialCode]="true" [phoneValidation]="true"
+                  [numberFormat]="PhoneNumberFormat.National" [maxLength]="15">
+                </ngx-intl-tel-input>
+                <validation-error [control]="registerForm.get('phone')" [InputLabel]="'phone'"></validation-error>
               </div>
 
 

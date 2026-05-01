@@ -19,6 +19,7 @@ import { UpdateProfile } from '../../services/update-profile';
 import { ProfileData } from '../../models/profile-data';
 import { MessageService } from 'primeng/api';
 import { Toast } from "primeng/toast";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -50,6 +51,7 @@ export class Profile {
   private readonly platformID = inject(PLATFORM_ID);
   private readonly updateProfile = inject(UpdateProfile);
   private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
 
   token: string = '';
   userData?: UserProfile;
@@ -94,7 +96,7 @@ export class Profile {
       this.profileSettings.markAllAsTouched();
       return;
     }
-  
+
     this.errorMessage = '';
     this.errors = [];
     this.data = {
@@ -136,20 +138,43 @@ export class Profile {
     }
   }
 
+  onEmailChanged(newEmail: string) {
+    this.profileSettings.patchValue({ email: newEmail });
+    this.messageService.add({
+      severity: 'contrast',
+      summary: `Your email has been changed to ${newEmail}`,
+      key: 'br',
+      life: 4000
+    });
+  }
+
   onConfirm() {
-    if (this.modalState.type == 'OTP') {
-      console.log('OTP confirmed');
-    } else if (this.modalState.type == 'Delete') {
-      console.log('Delete confirmed');
+    if (this.modalState.type === 'Delete') {
+
+      this.updateProfile.deleteAccount(this.token).subscribe({
+        next: () => {
+          this.showDeleteToaster();
+          this.closeModal();
+          this.router.navigate(['/auth/login']);
+          localStorage.clear();
+        },
+        error: (e) => {
+          console.log(e);
+        }
+      });
     }
   }
 
   showToaster() {
     this.messageService.add({
+      severity: 'contrast',
       summary: 'Profile has been updated successfully',
       key: 'br',
       life: 3000
     });
+  }
+  showDeleteToaster() {
+    this.messageService.add({ summary: 'Account deleted successfully', detail: 'Your account has been deleted' });
   }
 
 

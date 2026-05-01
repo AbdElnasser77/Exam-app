@@ -2,12 +2,12 @@
   <h1 class="text-3xl font-bold pb-6">Login</h1>
   <form [formGroup]="loginForm">
     <div class="mb-5">
-      <label for="userName" class="block mb-2 font-medium">Username</label>
+      <label for="username" class="block mb-2 font-medium">Username</label>
 
-      <input type="text" formControlName="userName" id="userName" class="custom-input" placeholder="user123" required
+      <input type="text" formControlName="username" id="username" class="custom-input" placeholder="user123" required
         pInputText />
 
-      <validation-error [control]="loginForm.get('userName')" [InputLabel]="'username'"></validation-error>
+      <validation-error [control]="loginForm.get('username')" [InputLabel]="'username'"></validation-error>
     </div>
     <div class="mb-2">
       <label for="password" class="block mb-2 font-medium">Password</label>
@@ -24,11 +24,10 @@
         password?</a>
     </div>
 
-    <div [class.hidden]="!invalid"
+    <div  [class.hidden]="!errorMessage"
       class="hidden bg-red-600/10 py-3 text-center border border-red-600 mb-10 mt-5 relative">
-      <i-lucide [img]="circleX" [size]="20" class="text-red-600 absolute bottom-5 bg-white rounded-full"></i-lucide>
-
-      <p class="text-red-600 text-sm pt-1">Something went wrong</p>
+      <i-lucide [img]="circleX" [size]="20" class="text-red-600 absolute -top-1.5 bg-white rounded-full"></i-lucide>
+      <p class="text-red-600 text-sm pt-1">{{ errorMessage }} invalid username or password</p>
     </div>
 
     <buttonComponent (click)="login()">Login</buttonComponent>

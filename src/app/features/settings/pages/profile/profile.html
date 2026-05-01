@@ -1,5 +1,5 @@
 <app-modal [visible]="modalState.visible && modalState.type === 'OTP'" [type]="'OTP'" (cancel)="closeModal()"
-    (confirm)="onConfirm()"></app-modal>
+    (emailChanged)="onEmailChanged($event)"></app-modal>
 <app-modal [visible]="modalState.visible && modalState.type === 'Delete'" [style]="'danger'" [content]="content"
     [confirmButton]="'Yes, delete'" (cancel)="closeModal()" (confirm)="onConfirm()"></app-modal>
   <p-toast key="br" position="bottom-right" styleClass="my-toast" />
@@ -36,7 +36,7 @@
                 class="text-blue-600 hover:underline font-semibold cursor-pointer flex items-center gap-1"><i-lucide
                     [img]="Pencil" [size]="16"></i-lucide> Change</button>
         </div>
-        <input type="email" formControlName="email" id="email" class="readonly border-gray-200 w-full"
+        <input type="email" formControlName="email" id="email" class="readonly border-gray-200 w-full pointer-events-none"
             placeholder="user@example.com" pInputText required readonly />
     </div>
 
