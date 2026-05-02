@@ -15,24 +15,19 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './diplomas-home.html',
   styleUrl: './diplomas-home.scss',
 })
-export class DiplomasHome implements OnInit, AfterViewInit, OnDestroy {
+export class DiplomasHome implements OnInit{
   readonly GraduationCap = GraduationCap;
   readonly ChevronDown = ChevronDown;
 
   private readonly diplomasService = inject(DiplomasService);
   private readonly platform_ID = inject(PLATFORM_ID);
-  private readonly el = inject(ElementRef);
   private token?: string;
-  private scrollableParent?: HTMLElement;
-  private scrollHandler = () => {
-    this.showScrollIndicator = (this.scrollableParent?.scrollTop ?? 0) === 0;
-  };
-  scrollParentLeft = 0;
+
+  scrolledTop?:boolean = true; 
 
   diplomas: Diploma[] = [];
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
-  showScrollIndicator = true;
 
   ngOnInit() {
     this.items = [{ label: 'Diplomas', routerLink: '/diplomas' }];
@@ -47,27 +42,12 @@ export class DiplomasHome implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit() {
-    if (isPlatformBrowser(this.platform_ID)) {
-      this.scrollableParent = this.findScrollableParent(this.el.nativeElement);
-      this.scrollableParent?.addEventListener('scroll', this.scrollHandler);
-      this.scrollParentLeft = this.scrollableParent?.getBoundingClientRect().left ?? 0;
+  onScroll(event:HTMLElement){
+    console.log(event.scrollTop);
+    if(event.scrollTop > 0){
+      this.scrolledTop = false;
     }
   }
 
-  ngOnDestroy() {
-    this.scrollableParent?.removeEventListener('scroll', this.scrollHandler);
-  }
-
-  private findScrollableParent(el: HTMLElement): HTMLElement | undefined {
-    let parent = el.parentElement;
-    while (parent) {
-      const { overflow, overflowY } = window.getComputedStyle(parent);
-      if (/auto|scroll/.test(overflow + overflowY)) return parent;
-      parent = parent.parentElement;
-    }
-    return undefined;
-  }
-
-  getExams() {}
+  getExams() { }
 }

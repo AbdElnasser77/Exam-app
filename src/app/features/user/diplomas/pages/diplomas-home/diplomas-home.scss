@@ -8,3 +8,7 @@
   color: #1D4ED8 !important;
 }
 
+.view-more{
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}

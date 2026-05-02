@@ -1,9 +1,8 @@
-<div class="relative h-screen">
+<div #el (scroll)="onScroll(el)" class="relative h-screen overflow-y-auto">
   <p-breadcrumb [model]="items" [home]="home" />
-
   <app-header [icon]="GraduationCap">Diplomas</app-header>
 
-  <div class="grid grid-cols-3 gap-5 select-none drag-none">
+  <div class="grid grid-cols-3 gap-5 select-none drag-none ">
     @for (diploma of diplomas; track $index) {
     <a [routerLink]="`/diplomas/${diploma.id}/exams`">
 
@@ -23,12 +22,12 @@
       </div>
     </a>
     }
-  </div>
 
-  <div class="flex flex-col items-center justify-center fixed bottom-0 right-0 py-5 bg-white/80 backdrop-blur-sm pointer-events-none transition-opacity duration-500"
-    [style.left.px]="scrollParentLeft"
-    [class.opacity-0]="!showScrollIndicator">
-    <p class="text-sm text-gray-500">Scroll to view more</p>
-    <i-lucide [img]="ChevronDown" [size]="20" [strokeWidth]="1"></i-lucide>
+
   </div>
+    <div [class.view-more]="!scrolledTop"
+      class="flex flex-col items-center justify-center sticky bottom-0 w-full py-5 bg-white/80 backdrop-blur-sm pointer-events-none transition-opacity duration-500">
+      <p class="text-sm text-gray-500">Scroll to view more</p>
+      <i-lucide [img]="ChevronDown" [size]="20" [strokeWidth]="1"></i-lucide>
+    </div>
 </div>
