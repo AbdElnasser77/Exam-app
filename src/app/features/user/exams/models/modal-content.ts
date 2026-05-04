@@ -1,5 +1,5 @@
 export interface ModalContent {
-    icon: any; // هنظبطها كمان شوية
+    icon: any; 
     header: string;
     body: string;
 }
