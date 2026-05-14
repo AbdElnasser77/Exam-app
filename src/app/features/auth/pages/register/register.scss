@@ -47,15 +47,17 @@
 ::ng-deep ngx-intl-tel-input .iti {
     display: block !important;
     width: 100%;
+    position: relative !important;
 }
 
 ::ng-deep ngx-intl-tel-input .iti input.custom-input {
     width: 100%;
     font-size: 0.875rem !important;
     border-radius: 0 !important;
-    padding: 10px;
+    padding: 10px !important;
     border: 1px solid #d1d5db;
     transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 ::ng-deep ngx-intl-tel-input .iti input.custom-input:hover {
@@ -68,15 +70,102 @@
     outline: none !important;
 }
 
-::ng-deep ngx-intl-tel-input .iti input ngx-intl-tel-input {
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 1px #bfdbfe !important;
-    outline: none !important;
+/* Flag button */
+::ng-deep ngx-intl-tel-input .iti__flag-container {
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
 }
 
+::ng-deep ngx-intl-tel-input .iti__selected-flag {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 8px !important;
+    border-right: 1px solid #d1d5db !important;
+    height: 100% !important;
+    background-color: #f9fafb !important;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+::ng-deep ngx-intl-tel-input .iti__selected-flag:hover,
+::ng-deep ngx-intl-tel-input .iti__selected-flag:focus {
+    background-color: #f3f4f6 !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__arrow {
+    margin-left: 6px !important;
+    border-top-color: #6b7280 !important;
+}
+
+/* Dropdown list */
 ::ng-deep ngx-intl-tel-input .iti__country-list {
     z-index: 9999 !important;
-    position: fixed !important;
-    height: 220px !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    min-width: 280px !important;
+    max-height: 220px !important;
     overflow-y: auto !important;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    border-top: none !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 0 0 4px 4px !important;
+    margin: 0 !important;
+}
+
+/* Search input inside dropdown */
+::ng-deep ngx-intl-tel-input .iti__search-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 8px 10px !important;
+    border: none !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    font-size: 0.875rem !important;
+    outline: none !important;
+    background: #f9fafb !important;
+    color: #1f2937 !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__search-input:focus {
+    background: #ffffff !important;
+    border-bottom-color: #2563eb !important;
+}
+
+/* Country items */
+::ng-deep ngx-intl-tel-input .iti__country {
+    padding: 7px 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer;
+    font-size: 0.875rem !important;
+    color: #1f2937 !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__country:hover {
+    background-color: #eff6ff !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__country.iti__highlight {
+    background-color: #dbeafe !important;
+}
+
+/* Separator between preferred and other countries */
+::ng-deep ngx-intl-tel-input .iti__divider {
+    border-top: 1px solid #e5e7eb !important;
+    margin: 4px 0 !important;
+    padding: 0 !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__country-name {
+    margin-left: 8px !important;
+    color: #374151 !important;
+}
+
+::ng-deep ngx-intl-tel-input .iti__dial-code {
+    color: #6b7280 !important;
+    font-size: 0.8rem !important;
 }
