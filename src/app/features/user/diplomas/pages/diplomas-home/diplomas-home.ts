@@ -43,7 +43,6 @@ export class DiplomasHome implements OnInit{
   }
 
   onScroll(event:HTMLElement){
-    console.log(event.scrollTop);
     if(event.scrollTop > 0){
       this.scrolledTop = false;
     }

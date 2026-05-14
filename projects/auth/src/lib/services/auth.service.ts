@@ -40,7 +40,7 @@ export class AuthService {
     return this.http.post<ConfirmEmailVerificationResponse>(`${this.BASE_URL}/confirm-email-verification`, data);
   }
 
-  forgotPassword(data: ForgotPasswordRequest): Observable<ForgotPasswordResponse> {
+  forgotPassword(data: ForgotPasswordRequest,): Observable<ForgotPasswordResponse> {
     return this.http.post<ForgotPasswordResponse>(`${this.BASE_URL}/forgot-password`, data);
   }
 

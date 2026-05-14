@@ -16,6 +16,7 @@ import { ChevronRight, LucideAngularModule } from 'lucide-angular';
 import { ValidationError } from "../../components/validation-error/validation-error";
 import { Verify } from "../../components/verify-otp/verify";
 import { AuthService } from 'auth';
+import {ProgressSpinner } from 'primeng/progressspinner';
 import {
   NgxIntlTelInputModule,
   SearchCountryField,
@@ -25,7 +26,7 @@ import {
 
 @Component({
   selector: 'app-register',
-  imports: [Button, PasswordModule, InputTextModule, ReactiveFormsModule, LucideAngularModule, ValidationError, ButtonModule, StepperModule, Verify, RouterLink, NgxIntlTelInputModule],
+  imports: [Button, PasswordModule, InputTextModule, ReactiveFormsModule, LucideAngularModule, ValidationError, ButtonModule, StepperModule, Verify, RouterLink, NgxIntlTelInputModule, ProgressSpinner],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
@@ -144,7 +145,7 @@ export class Register {
 
     this.authService.register({ ...formValues, username: userName, confirmPassword: rePassword, phone }).subscribe({
       next: () => {
-        this.router.navigate(['/diploma']);
+        this.router.navigate(['/diplomas']);
       },
       error: (e) => {
         this.isLoading = false;

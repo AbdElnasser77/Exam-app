@@ -23,6 +23,7 @@ export class ForgotPassword {
 
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private readonly route = inject(ActivatedRoute);
 
   get emailControl() { return this.emailForm.controls['email']; }
 
@@ -33,7 +34,6 @@ export class ForgotPassword {
   }
 
 
-
   sendEmail() {
     this.emailForm.markAllAsTouched();
     if (this.emailForm.invalid) return;
@@ -41,7 +41,7 @@ export class ForgotPassword {
     this.errorMessage = '';
     this.isLoading = true;
 
-    this.authService.forgotPassword({ email: this.emailForm.get('email')!.value }).subscribe({
+    this.authService.forgotPassword({ email: this.emailForm.get('email')!.value,redirectUrl:`${window.location.origin}/auth/reset-password` }).subscribe({
       next: () => {
         this.isLoading = false;
         this.submittedEmail = this.emailForm.get('email')!.value;

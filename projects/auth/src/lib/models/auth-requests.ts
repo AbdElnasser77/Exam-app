@@ -25,6 +25,7 @@ export interface ConfirmEmailVerificationRequest {
 
 export interface ForgotPasswordRequest {
   email: string;
+  redirectUrl: string;
 }
 
 export interface ResetPasswordRequest {
